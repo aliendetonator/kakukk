@@ -1,0 +1,34 @@
+{
+    "name": "kakukk",
+    "version": "1.0.0",
+    "description": "Webprog 2 Project",
+    "main": "dist/app.js",
+    "scripts": {
+        "start": "tsc && node dist/app.js",
+        "lint": "eslint . --ext .ts",
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aliendetonator/kakukk.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/aliendetonator/kakukk/issues"
+    },
+    "homepage": "https://github.com/aliendetonator/kakukk#readme",
+    "devDependencies": {
+        "@types/express": "^4.17.13",
+        "@typescript-eslint/eslint-plugin": "^5.15.0",
+        "@typescript-eslint/parser": "^5.15.0",
+        "eslint": "^8.11.0",
+        "eslint-plugin-react": "^7.29.4",
+        "typescript": "^4.6.2"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "react": "^17.0.2"
+    }
+}
