@@ -17,7 +17,7 @@ const db = mysql.createConnection(
     host:'localhost',
     user:'root',
     password:'',
-    database:'probadb',
+    database:'webii',
     port:'3306'
 })
 
