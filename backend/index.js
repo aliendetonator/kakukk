@@ -75,8 +75,6 @@ app.post('/register', (req, res) => {
     const pw = req.body.password;
     const username = req.body.username;
     
-    let hiba = { message: 'ismeretlen hiba', code: 'unknown_error' };
-    
     bcrypt
         .hash(pw, 10)
         .then(hash => {
@@ -86,24 +84,27 @@ app.post('/register', (req, res) => {
 
             db.query(qr, (err, result) => {
                 if (err) {
-        
+                    let hiba = { message: 'ismeretlen hiba', code: 'unknown_error' };
+                    
                     // email létezik
                     if (err.sqlMessage.includes('\'PRIMARY\'')) {
-                        hiba.message = 'Ezzel az email címmel már van felhasználó!';
-                        hiba.code = 'email_exists';
+                        response.message = 'Ezzel az email címmel már van felhasználó!';
+                        response.code = 'email_exists';
                     }
-        
+                        
+                    // felhasználónév létezik
                     if (err.sqlMessage.includes('\'felhasznalonev\'')) {
-                        hiba.message = 'Ezzel a felhasználónévvel már van felhasználó!';
-                        hiba.code = 'username_exists';
+                        response.message = 'Ezzel a felhasználónévvel már van felhasználó!';
+                        response.code = 'username_exists';
                     }
         
-                    res.send(hiba);
+                    res.send(response);
                     return console.log(err)
                 };
             })
         })
         .catch(err => {
+            res.send({ message: 'ismeretlen hiba', code: 'unknown_error' });
             return console.error(err.message)
         });
     
