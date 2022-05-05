@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-require('dotenv').config({ 'path': '.env' });
 
 const mysql = require("mysql2");
 
@@ -14,11 +13,11 @@ app.use(bodyparser.json());
 //adatbázis csatolása
 
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'webii',
+    port: '3306'
 })
 
 // adatbázis kapcsolat ellenőrzése
@@ -126,6 +125,6 @@ app.delete('/user/:id', (req, res) => {
 })
 
 //szerver futtatása
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
     console.log(`server is running on http://localhost:${process.env.PORT}`);
 })
