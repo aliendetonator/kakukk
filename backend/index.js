@@ -14,18 +14,18 @@ app.use(bodyparser.json());
 
 const db = mysql.createConnection(
 {
-    host:process.env.DBHOST,
-    user:process.env.DBUSER,
-    password:process.env.PASSWORD,
-    database:process.env.DBDATABASE,
-    port:process.env.DBPORT
+    host:process.env.DB_HOST,
+    user:process.env.DB_USER,
+    password:process.env.DB_PASSWORD,
+    database:process.env.DB_DATABASE,
+    port:process.env.DB_PORT
 })
 
 // adatbázis kapcsolat ellenőrzése
 
 db.connect(err=>
 {
-    if (err) console.log(err, 'Database Error!');
+    if (err) return console.log(err, 'Database Error!');
     console.log("database connected.");
 })
 
@@ -146,7 +146,7 @@ app.delete('/user/:id', (req,res)=>
 })
 
 //szerver futtatása
-app.listen(3000,()=>
+app.listen(process.env.PORT,()=>
 {
     console.log("server running.");
     
