@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcrypt')
 
 const mysql = require("mysql2");
 
@@ -68,23 +69,48 @@ app.get('/user/:id', (req, res) => {
     })
 })
 
-//adatok beszúrása
-app.post('/user', (req, res) => {
-    console.log(req.body, 'createData');
+//regisztráció
+app.post('/register', (req, res) => {
+    const email = req.body.email;
+    const pw = req.body.password;
+    const username = req.body.username;
+    
+    let hiba = { message: 'ismeretlen hiba', code: 'unknown_error' };
+    
+    bcrypt
+        .hash(pw, 10)
+        .then(hash => {
 
-    let fullName = req.body.fullname;
-    let eMail = req.body.email;
-    let ph = req.body.phone;
+            console.log(`Hash: ${hash}`);
+            let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
 
-    let qr = `INSERT INTO felhasznalo (fullname, email, phone) VALUES('${fullName}', '${eMail}', '${ph}')`;
-
-    db.query(qr, (err, result) => {
-        if (err) return console.log(err);
-
-        res.send({
-            message: 'data inserted'
+            db.query(qr, (err, result) => {
+                if (err) {
+        
+                    // email létezik
+                    if (err.sqlMessage.includes('\'PRIMARY\'')) {
+                        hiba.message = 'Ezzel az email címmel már van felhasználó!';
+                        hiba.code = 'email_exists';
+                    }
+        
+                    if (err.sqlMessage.includes('\'felhasznalonev\'')) {
+                        hiba.message = 'Ezzel a felhasználónévvel már van felhasználó!';
+                        hiba.code = 'username_exists';
+                    }
+        
+                    res.send(hiba);
+                    return console.log(err)
+                };
+            })
         })
-    })
+        .catch(err => {
+            return console.error(err.message)
+        });
+    
+        res.send({
+            message: 'Felhasználó sikeresen létrehozva!',
+            code: 'user_created'
+        })
 })
 
 //adatok módosítása
@@ -126,5 +152,5 @@ app.delete('/user/:id', (req, res) => {
 
 //szerver futtatása
 app.listen(3000, () => {
-    console.log(`server is running on http://localhost:${process.env.PORT}`);
+    console.log(`server is running on http://localhost:3000`);
 })
