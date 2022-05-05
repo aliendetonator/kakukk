@@ -14,11 +14,11 @@ app.use(bodyparser.json());
 
 const db = mysql.createConnection(
 {
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'webii',
-    port:'3306'
+    host:process.env.DBHOST,
+    user:process.env.DBUSER,
+    password:process.env.PASSWORD,
+    database:process.env.DBDATABASE,
+    port:process.env.DBPORT
 })
 
 // adatbázis kapcsolat ellenőrzése
