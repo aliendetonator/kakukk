@@ -13,9 +13,16 @@ export class ApiserviceService {
 
   apiUrl='http://localhost:3000/user';
 
-  //minden adat kiszedése
+  //minden adat kiszedése a felhasználóból
   getAllData():Observable<any>
   {
     return this._http.get(`${this.apiUrl}`)
+  }
+
+  //adat kreálás
+
+  createData(data:any):Observable<any>
+  {
+    return this._http.post(`${this.apiUrl}`,data)
   }
 }

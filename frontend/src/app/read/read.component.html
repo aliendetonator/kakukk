@@ -1,3 +1,16 @@
-<p>Ez itt a read</p>
-
-<p> kiszedtünk backből adatokat btw</p>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">felhasznalonev</th>
+            <th scope="col">email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = 'let us of readData'>
+            <td>{{us.felhasznalonev}}</td>
+            <td>{{us.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
