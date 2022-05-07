@@ -10,7 +10,7 @@ export class ReadComponent implements OnInit {
 
   constructor(private service:ApiserviceService) { }
 
-  //readData:any;
+  readData:any;
 
   ngOnInit(): void 
   {
@@ -18,7 +18,7 @@ export class ReadComponent implements OnInit {
     {
       console.log(res,"res==>");
 
-      //this.readData = res.data;
+      this.readData = res.data;
     })
   }
 
