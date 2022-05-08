@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const clc = require('cli-color');
 
 const mysql = require("mysql2");
 
@@ -13,20 +14,34 @@ app.use(bodyparser.json());
 
 //adatbázis csatolása
 
-const db = mysql.createConnection({
+const db_config = {
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'webii',
     port: '3306'
-})
+};
+var db;
 
-// adatbázis kapcsolat ellenőrzése
+function handleDisconnect() {
+    db = mysql.createConnection(db_config);
 
-db.connect(err => {
-    if (err) return console.log(err, 'Database Error!');
-    console.log("database connected.");
-})
+    db.connect(err => {
+        if (err) {
+            console.log(clc.red('Database connection failed! Retrying...'));
+            setTimeout(handleDisconnect, 2000);
+        } else {
+            console.log(clc.green('Database connected!'));
+        }
+    })
+
+    db.on('error', err => {
+        if (err.code === 'ECONNRESET') {
+            handleDisconnect();
+        }
+    });
+}
+handleDisconnect();
 
 //minden adat kiszedése egy táblából
 app.get('/user', (req, res) => {
@@ -74,7 +89,7 @@ app.post('/register', (req, res) => {
     const email = req.body.email;
     const pw = req.body.password;
     const username = req.body.username;
-    
+
     bcrypt
         .hash(pw, 10)
         .then(hash => {
@@ -85,19 +100,19 @@ app.post('/register', (req, res) => {
             db.query(qr, (err, result) => {
                 if (err) {
                     let hiba = { message: 'ismeretlen hiba', code: 'unknown_error' };
-                    
+
                     // email létezik
                     if (err.sqlMessage.includes('\'PRIMARY\'')) {
                         response.message = 'Ezzel az email címmel már van felhasználó!';
                         response.code = 'email_exists';
                     }
-                        
+
                     // felhasználónév létezik
                     if (err.sqlMessage.includes('\'felhasznalonev\'')) {
                         response.message = 'Ezzel a felhasználónévvel már van felhasználó!';
                         response.code = 'username_exists';
                     }
-        
+
                     res.send(response);
                     return console.log(err)
                 };
@@ -107,11 +122,11 @@ app.post('/register', (req, res) => {
             res.send({ message: 'ismeretlen hiba', code: 'unknown_error' });
             return console.error(err.message)
         });
-    
-        res.send({
-            message: 'Felhasználó sikeresen létrehozva!',
-            code: 'user_created'
-        })
+
+    res.send({
+        message: 'Felhasználó sikeresen létrehozva!',
+        code: 'user_created'
+    })
 })
 
 //adatok módosítása
