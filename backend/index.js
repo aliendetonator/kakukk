@@ -6,7 +6,6 @@ const clc = require('cli-color');
 
 const mysql = require("mysql2");
 
-import { register } from './dbFunctions';
 
 
 const app = express();
@@ -88,7 +87,8 @@ app.get('/user/:id', (req, res) => {
 
 //regisztráció
 app.post('/register', (req, res) => {
-    const response = register(db, req.body);
+    const data = req.body;
+    const response = require('./dbFunctions.js').register(db, data);
     res.send(response);
 })
 

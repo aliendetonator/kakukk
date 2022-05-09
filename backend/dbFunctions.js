@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-export const register = (db, data) => {
+const register = (db, data) => {
     const email = data.email;
     const pw = data.password;
     const username = data.username;
@@ -55,4 +55,8 @@ export const register = (db, data) => {
         message: 'Felhasználó sikeresen létrehozva!',
         code: 'user_created'
     };
+}
+
+module.exports = {
+    register
 }

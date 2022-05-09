@@ -1,29 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms'
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ApiserviceService } from '../apiservice.service';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
 
-  constructor() { }
+  constructor(private service: ApiserviceService) { }
 
-  ngOnInit(): void {
+  createForm = new FormGroup({
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(20),
+      Validators.pattern('[a-zA-Z0-9_.]*')
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ])
+  })
+  // ngOnInit(): void {
+  // }
+
+  // userForm = new FormGroup(
+  //   {
+
+  //     'username': new FormControl(''),
+  //     'email': new FormControl(''),
+  //     'password': new FormControl('')
+  //   })
+
+  onSubmit() {
+    var data = {
+      username: this.createForm.value.username, email: this.createForm.value.email, password: this.createForm.value.password
+    }
+    this.service.createData(data).subscribe((res) => {
+      console.log(res);
+    });
   }
-/*
-  userForm = new FormGroup(
-    {
-      
-      'username': new FormControl(''),
-      'email': new FormControl(''),
-      'password': new FormControl('')
-    })
-  
-  usersubmit()
-  {
 
-  }
-*/
 }

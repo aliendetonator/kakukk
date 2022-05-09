@@ -16,7 +16,7 @@ export class ReadComponent implements OnInit {
   {
     this.service.getAllData().subscribe((res)=>
     {
-      console.log(res,"res==>");
+      console.log(res);
 
       this.readData = res.data;
     })

@@ -1,16 +1,16 @@
 <div class="Container">
-    <form>
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
         <div class="col-lg-6 mt-2">
-            <input type="text" class="form-control" placeholder="Enter your email">
+            <input type="text" class="form-control" formControlName="email" placeholder="Enter your email">
         </div>
         <div class="col-lg-6 mt-2">
-            <input type="text" class="form-control" placeholder="Enter your username">
+            <input type="text" class="form-control" formControlName="username" placeholder="Enter your username">
         </div>
         <div class="col-lg-6 mt-2">
-            <input type="text" class="form-control" placeholder="Enter your password">
+            <input type="password" class="form-control" formControlName="password" placeholder="Enter your password">
         </div>
         <div class="col-lg-4 mt-2">
-            <button class="btn btn-primary btn-sm">Create</button> 
+            <button type="submit" [disabled]="!createForm.valid" class="btn btn-primary btn-sm">Create</button> 
         </div>
     </form>
 </div>
