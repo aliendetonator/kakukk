@@ -23,6 +23,6 @@ export class ApiserviceService {
 
   createData(data:any):Observable<any>
   {
-    return this._http.post(`${this.apiUrl}/register`,data)
+    return this._http.post(`${this.apiUrl}/register`, data)
   }
 }

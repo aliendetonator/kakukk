@@ -27,20 +27,12 @@ export class CreateComponent {
       Validators.minLength(8)
     ])
   })
-  // ngOnInit(): void {
-  // }
-
-  // userForm = new FormGroup(
-  //   {
-
-  //     'username': new FormControl(''),
-  //     'email': new FormControl(''),
-  //     'password': new FormControl('')
-  //   })
 
   onSubmit() {
     var data = {
-      username: this.createForm.value.username, email: this.createForm.value.email, password: this.createForm.value.password
+      username: this.createForm.value.username,
+      email: this.createForm.value.email,
+      password: this.createForm.value.password
     }
     this.service.createData(data).subscribe((res) => {
       console.log(res);
