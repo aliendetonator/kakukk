@@ -6,6 +6,8 @@ const clc = require('cli-color');
 
 const mysql = require("mysql2");
 
+import { register } from './dbFunctions';
+
 
 const app = express();
 
@@ -86,47 +88,8 @@ app.get('/user/:id', (req, res) => {
 
 //regisztráció
 app.post('/register', (req, res) => {
-    const email = req.body.email;
-    const pw = req.body.password;
-    const username = req.body.username;
-
-    bcrypt
-        .hash(pw, 10)
-        .then(hash => {
-
-            console.log(`Hash: ${hash}`);
-            let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
-
-            db.query(qr, (err, result) => {
-                if (err) {
-                    let hiba = { message: 'ismeretlen hiba', code: 'unknown_error' };
-
-                    // email létezik
-                    if (err.sqlMessage.includes('\'PRIMARY\'')) {
-                        response.message = 'Ezzel az email címmel már van felhasználó!';
-                        response.code = 'email_exists';
-                    }
-
-                    // felhasználónév létezik
-                    if (err.sqlMessage.includes('\'felhasznalonev\'')) {
-                        response.message = 'Ezzel a felhasználónévvel már van felhasználó!';
-                        response.code = 'username_exists';
-                    }
-
-                    res.end(response);
-                    return console.log(err)
-                };
-            })
-        })
-        .catch(err => {
-            res.end({ message: 'ismeretlen hiba', code: 'unknown_error' });
-            return console.error(err.message)
-        });
-
-    res.send({
-        message: 'Felhasználó sikeresen létrehozva!',
-        code: 'user_created'
-    })
+    const response = register(db, req.body);
+    res.send(response);
 })
 
 //adatok módosítása
