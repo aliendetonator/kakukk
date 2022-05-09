@@ -113,13 +113,13 @@ app.post('/register', (req, res) => {
                         response.code = 'username_exists';
                     }
 
-                    res.send(response);
+                    res.end(response);
                     return console.log(err)
                 };
             })
         })
         .catch(err => {
-            res.send({ message: 'ismeretlen hiba', code: 'unknown_error' });
+            res.end({ message: 'ismeretlen hiba', code: 'unknown_error' });
             return console.error(err.message)
         });
 
