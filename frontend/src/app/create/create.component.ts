@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ApiService } from '../apiservice.service';
 
@@ -7,9 +7,13 @@ import { ApiService } from '../apiservice.service';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
 
   constructor(private service: ApiService) { }
+  
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   createForm = new FormGroup({
     username: new FormControl('', [

@@ -10,12 +10,14 @@ import {HttpClientModule} from '@angular/common/http'
 import { ApiService } from './apiservice.service';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LoginPanelComponent } from './login-panel/login-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateComponent,
-    ReadComponent
+    ReadComponent,
+    LoginPanelComponent
   ],
   imports: [
     BrowserModule,

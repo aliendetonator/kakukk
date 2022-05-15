@@ -98,6 +98,13 @@ app.post('/register', (req, res) => {
     res.send(response);
 })
 
+//login
+app.post('/login', (req, res) => {
+    const data = req.body;
+    const response = {status: "failed"};
+    res.send(response);
+})
+
 //adatok módosítása
 app.put('/user/:id', (req, res) => {
     console.log(req.body, 'updateData');
@@ -136,7 +143,7 @@ app.delete('/user/:id', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    if(req.session.page_views){
+    if (req.session.page_views) {
         req.session.page_views++;
         return res.send(`You visited this page ${req.session.page_views} times`);
     }
