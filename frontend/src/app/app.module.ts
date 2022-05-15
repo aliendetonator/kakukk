@@ -11,13 +11,15 @@ import { ApiService } from './apiservice.service';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginPanelComponent } from './login-panel/login-panel.component';
+import { RegisterPanelComponent } from './register-panel/register-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateComponent,
     ReadComponent,
-    LoginPanelComponent
+    LoginPanelComponent,
+    RegisterPanelComponent
   ],
   imports: [
     BrowserModule,

@@ -30,4 +30,9 @@ export class ApiService {
   login(data: any): Observable<any> {
     return this._http.post(`${this.apiUrl}/login`, data);
   }
+
+  //register
+  register(data: any): Observable<any> {
+    return this._http.post(`${this.apiUrl}/register`, data);
+  }
 }
