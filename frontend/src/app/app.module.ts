@@ -7,7 +7,7 @@ import { CreateComponent } from './create/create.component';
 import { ReadComponent } from './read/read.component';
 
 import {HttpClientModule} from '@angular/common/http'
-import { ApiserviceService } from './apiservice.service';
+import { ApiService } from './apiservice.service';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -24,7 +24,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ApiserviceService],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

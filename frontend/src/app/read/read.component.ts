@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiserviceService } from '../apiservice.service';
+import { ApiService } from '../apiservice.service';
 
 @Component({
   selector: 'app-read',
@@ -8,14 +8,12 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class ReadComponent implements OnInit {
 
-  constructor(private service:ApiserviceService) { }
+  constructor(private service: ApiService) { }
 
-  readData:any;
+  readData: any;
 
-  ngOnInit(): void 
-  {
-    this.service.getAllData().subscribe((res)=>
-    {
+  ngOnInit(): void {
+    this.service.getAllData().subscribe((res) => {
       console.log(res);
 
       this.readData = res.data;

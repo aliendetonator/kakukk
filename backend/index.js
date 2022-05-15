@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -12,6 +13,11 @@ const app = express();
 
 app.use(cors());
 app.use(bodyparser.json());
+app.use(session({
+    secret: 'ez nem tom mi xd',
+    resave: false,
+    saveUninitialized: true
+}));
 
 //adatbázis csatolása
 
@@ -127,6 +133,15 @@ app.delete('/user/:id', (req, res) => {
             message: 'data Deleted'
         })
     })
+})
+
+app.get('/', (req, res) => {
+    if(req.session.page_views){
+        req.session.page_views++;
+        return res.send(`You visited this page ${req.session.page_views} times`);
+    }
+    req.session.page_views = 1;
+    res.send('Welcome to the page!');
 })
 
 //szerver futtatása

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { ApiserviceService } from '../apiservice.service';
+import { ApiService } from '../apiservice.service';
 
 @Component({
   selector: 'app-create',
@@ -9,7 +9,7 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class CreateComponent {
 
-  constructor(private service: ApiserviceService) { }
+  constructor(private service: ApiService) { }
 
   createForm = new FormGroup({
     username: new FormControl('', [

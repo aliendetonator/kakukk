@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiserviceService {
+export class ApiService {
 
   constructor(private _http:HttpClient) { }
 
@@ -16,13 +16,15 @@ export class ApiserviceService {
   //minden adat kiszedése a felhasználóból
   getAllData():Observable<any>
   {
-    return this._http.get(`${this.apiUrl}/user`)
+    // return this._http.get(`${this.apiUrl}/user`, {withCredentials: true});
+    return this._http.get(`${this.apiUrl}/user`); 
   }
 
   //adat kreálás
 
   createData(data:any):Observable<any>
   {
-    return this._http.post(`${this.apiUrl}/register`, data)
+    // return this._http.post(`${this.apiUrl}/register`, data, {withCredentials: true});
+    return this._http.post(`${this.apiUrl}/register`, data);
   }
 }
