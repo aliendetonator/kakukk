@@ -3,60 +3,125 @@ const bcrypt = require('bcrypt');
 const register = (db, data) => {
     const email = data.email;
     const pw = data.password;
+    const pwRepeat = data.passwordRepeat;
     const username = data.username;
 
-    if(email == null || pw == null || username == null){
-        return {
-            message: 'Hiányzó adat!',
-            code: 'missing_data'
+    return new Promise((resolve, reject) => {
+        //if(email == null || pw == null || username == null || pwRepeat == null) {
+        if (email == null || pw == null || username == null) {
+            resolve({
+                message: 'Hiányzó adat!',
+                code: 'missing_data',
+                status: 100
+            });
         }
-    }
 
-    bcrypt
-        .hash(pw, 10)
-        .then(hash => {
+        // if(pw != pwRepeat) {
+        //     return {
+        //         message: 'A két jelszó nem egyezik!',
+        //         code: 'password_not_match'
+        //     }
+        // }
+        const hash = bcrypt.hashSync(pw, 10);
 
-            let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
+        let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
+        db.query(qr, (err, result) => {
 
-            db.query(qr, (err, result) => {
-                if (err) {
+            var resp = {
+                message: 'Sikeres regisztráció!',
+                code: 'register_success',
+                status: 0
+            };
 
-                    // email létezik
-                    if (err.sqlMessage.includes('\'PRIMARY\'')) {
-                        return {
-                            message: 'Ezzel az email címmel már van felhasználó!',
-                            code: 'email_exists'
-                        }
-                    }
+            if (err) {
 
-                    // felhasználónév létezik
-                    if (err.sqlMessage.includes('\'felhasznalonev\'')) {
-                        return {
-                            message: 'Ezzel a felhasználónévvel már van felhasználó!',
-                            code: 'username_exists'
-                        }
-                    }
+                resp = {
+                    message: 'Ismeretlen hiba!',
+                    code: 'unknown_error',
+                    status: 99
+                }
 
-                    return {
-                        message: 'Ismeretlen hiba!',
-                        code: 'unknown_error'
+                // felhasználónév létezik
+                if (err.sqlMessage.toLowerCase().includes('\'felhasznalonev\'')) {
+                    resp = {
+                        message: 'Ezzel a felhasználónévvel már van felhasználó!',
+                        code: 'username_exists',
+                        status: 2
                     }
                 }
-            })
-        })
-        .catch(err => {
-            return {
-                message: 'Ismeretlen hiba!',
-                code: 'unknown_error'
-            };
-        });
 
-    return {
-        message: 'Felhasználó sikeresen létrehozva!',
-        code: 'user_created'
-    };
+                // email létezik
+                if (err.sqlMessage.toLowerCase().includes('\'primary\'')) {
+                    resp = {
+                        message: 'Ezzel az email címmel már van felhasználó!',
+                        code: 'email_exists',
+                        status: 1
+                    }
+                }
+            }
+
+            resolve(resp);
+
+        })
+    })
+
+}
+
+const login = (db, data) => {
+    const username = data.username;
+    const pw = data.password;
+
+
+    return new Promise((resolve, reject) => {
+        if (username == null || pw == null) {
+            resolve({
+                message: 'Hiányzó adat!',
+                code: 'missing_data',
+                status: 100
+            });
+        }
+
+        const usernameOrEmail = username?.includes('@') ? 'email' : 'felhasznalonev';
+
+        let qr = `select * from felhasznalo where ${usernameOrEmail} = '${username}'`;
+
+        db.query(qr, (err, result) => {
+            var resp = {
+                message: 'Sikeres bejelentkezés!',
+                code: 'login_success',
+                status: 0
+            }
+
+            if (err) {
+                resp = {
+                    message: 'Ismeretlen hiba!',
+                    code: 'unknown_error',
+                    status: 99
+                }
+            }
+            if (result?.length == 0) {
+                resp = {
+                    message: 'Nincs ilyen felhasználó!',
+                    code: 'user_not_found',
+                    status: 1
+                }
+            }
+            if (resp.status == 0) {
+                const pwMatch = bcrypt.compareSync(pw, result[0].jelszo);
+                if (!pwMatch) {
+                    resp = {
+                        message: 'Hibás jelszó!',
+                        code: 'wrong_password',
+                        status: 2
+                    }
+                }
+            }
+            resolve(resp);
+        });
+    });
 }
 
 module.exports = {
-    register
+    register,
+    login
 }

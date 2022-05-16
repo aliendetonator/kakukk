@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../apiservice.service';
 
@@ -8,6 +8,7 @@ import { ApiService } from '../apiservice.service';
   styleUrls: ['./login-panel.component.css']
 })
 export class LoginPanelComponent implements OnInit {
+  @ViewChild('loginPanel') loginPanel: ElementRef;
 
   constructor(private service: ApiService) { }
 
@@ -35,7 +36,10 @@ export class LoginPanelComponent implements OnInit {
     this.service.login(data).subscribe(res => {
       console.log(res);
     });
-    
+  }
+  
+  closePanel() {
+    this.loginPanel.nativeElement.classList.remove('active');
   }
 
 }

@@ -94,15 +94,20 @@ app.get('/user/:id', (req, res) => {
 //regisztráció
 app.post('/register', (req, res) => {
     const data = req.body;
-    const response = require('./dbFunctions.js').register(db, data);
-    res.send(response);
+    // const response = require('./dbFunctions.js').register(db, data);
+    require('./dbFunctions.js').register(db, data)
+        .then(resolve => {
+            res.send(resolve);
+        });
 })
 
 //login
 app.post('/login', (req, res) => {
     const data = req.body;
-    const response = {status: "failed"};
-    res.send(response);
+    require('./dbFunctions.js').login(db, data)
+        .then(resolve => {
+            res.send(resolve);
+        });
 })
 
 //adatok módosítása

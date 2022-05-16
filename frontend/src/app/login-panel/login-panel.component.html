@@ -1,5 +1,5 @@
-<div class="login-popup">
-    <div class="close-btn">&times;</div>
+<div class="login-popup active" #loginPanel>
+    <div class="close-btn" (click)="closePanel()">&times;</div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h2>Bejelentkezés</h2>
         <div class="form-element">
