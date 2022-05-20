@@ -21,7 +21,7 @@
             <i class="fas fa-eye" id="togglePasswordRepeat"></i>
         </div>
         <div class="form-element">
-            <button id="signupbtn">Regisztráció</button>
+            <button id="signupbtn" [disabled]="!registerForm.valid">Regisztráció</button>
         </div>
         <div class="form-element">
             <a id="show-login" href="/login">Van már fiókod? Kattints ide!</a>
