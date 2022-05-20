@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './create/create.component';
-import { ReadComponent } from './read/read.component';
+import { LoginPanelComponent } from './login-panel/login-panel.component';
+import { RegisterPanelComponent } from './register-panel/register-panel.component';
 
 const routes: Routes = 
 [
-  {path:'create', component:CreateComponent},
-  {path:'read', component:ReadComponent}
+  {path:'register', component:RegisterPanelComponent},
+  {path:'login', component:LoginPanelComponent},
 ];
 
 @NgModule({
