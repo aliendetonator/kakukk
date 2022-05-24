@@ -118,12 +118,13 @@ const login = (db, data) => {
 
 const leaderboard = (db, data) => {
   const table = data.table ? data.table : "farkas";
+  const limit = data.limit ? data.limit : 10;
+  const offset = data.offset ? data.offset : 0;
+  
   if (table === "felhasznalo") {
     table = "farkas";
   }
-  const limit = data.limit ? data.limit : 10;
-  const offset = data.offset ? data.offset : 0;
-
+  
   return new Promise((resolve, reject) => {
     let qr = `CALL get${table}top(${limit}, ${offset});`;
     db.query(qr, (err, result) => {
@@ -135,7 +136,7 @@ const leaderboard = (db, data) => {
         });
       }
       resolve({
-        data: result,
+        data: result[0],
       });
     });
   });
