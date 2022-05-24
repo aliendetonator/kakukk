@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   leaderboard(data: any): Observable<any>{
-    return this._http.get(`${this.apiUrl}/leaderboard`, data);
+    return this._http.post(`${this.apiUrl}/leaderboard`, data);
   }
 
 }
