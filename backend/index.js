@@ -156,6 +156,28 @@ app.get('/', (req, res) => {
     res.send('Welcome to the page!');
 })
 
+
+//Leader board kiiratás
+app.get('/leaderboard', (req, res) => {
+    
+    let qr = `CALL ${getfarkastop()};`
+    db.query(qr, (err, result) => {
+        if(err)
+        {
+            console.log(err);
+        }
+        
+        if(result != null)
+        {   
+            res.send({ message: 'megtaláltad te kutya' });
+        }
+        else
+        {
+            res.send({ message:'Nincs meg te cica :(' });
+        }
+    });
+});
+
 //szerver futtatása
 app.listen(3000, () => {
     console.log(`server is running on http://localhost:3000`);

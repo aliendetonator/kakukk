@@ -1,0 +1,20 @@
+#container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffff;
+  box-shadow: 15px 15px 5px 5px #666;
+  border-radius: 10px;
+  width: 600px;
+  height: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.btns {
+  text-align: center;
+  margin: 10px;
+}

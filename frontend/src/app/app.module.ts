@@ -12,6 +12,7 @@ import { ApiService } from './apiservice.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginPanelComponent } from './login-panel/login-panel.component';
 import { RegisterPanelComponent } from './register-panel/register-panel.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterPanelComponent } from './register-panel/register-panel.componen
     CreateComponent,
     ReadComponent,
     LoginPanelComponent,
-    RegisterPanelComponent
+    RegisterPanelComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

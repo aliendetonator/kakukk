@@ -35,4 +35,9 @@ export class ApiService {
   register(data: any): Observable<any> {
     return this._http.post(`${this.apiUrl}/register`, data);
   }
+
+  leaderboard(data: any): Observable<any>{
+    return this._http.get(`${this.apiUrl}/leaderboard`, data);
+  }
+
 }

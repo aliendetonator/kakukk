@@ -10,7 +10,7 @@ import { ApiService } from '../apiservice.service';
 export class CreateComponent implements OnInit {
 
   constructor(private service: ApiService) { }
-  
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
