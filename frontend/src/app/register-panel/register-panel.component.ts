@@ -9,31 +9,43 @@ import { ApiService } from '../apiservice.service';
 })
 export class RegisterPanelComponent implements OnInit {
 
-  constructor(private service: ApiService) { }
 
   ngOnInit(): void {
   }
-  registerForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(20),
-      Validators.pattern('[a-zA-Z0-9_.]*')
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8)
-    ]),
-    passwordRepeat: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8)
-    ])
-  });
-  onSubmit() { 
+  registerForm = new FormGroup(
+    {
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20),
+        Validators.pattern('[a-zA-Z0-9_.]*')
+      ]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      passwordRepeat: new FormControl('', [
+        Validators.required
+      ])
+    }
+  );
+
+  constructor(private service: ApiService) {
+    this.registerForm.valueChanges.subscribe(x => {
+      if (x.password !== x.passwordRepeat) {
+        this.registerForm.controls.passwordRepeat.setErrors({ 'password': true });
+        return;
+      }
+      this.registerForm.controls.passwordRepeat.setErrors(null);
+    });
+  }
+
+
+  onSubmit() {
     const data = {
       username: this.registerForm.value.username,
       email: this.registerForm.value.email,
