@@ -3,16 +3,24 @@
       
       <h1>Vérfarkasok éjszakája</h1>
     </div>
-    <div class="Login">
-      <ul>
-        <li><a routerLink="../register" class="btn btn-outline-primary btn-lg">Register</a></li>
-        &nbsp;
-        <li><a routerLink="../login" class="btn btn-outline-success btn-lg">Login</a></li>
-      </ul>
-    </div>
+    
       
     
   </header>
-  <main></main>
+  <main>
+    <h2>A játékhoz kérem jelentkezzen be!</h2>
+    <div class="Login">
+        <ul>
+            <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
+            &nbsp;
+          <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
+        </ul>
+    </div>
+    
+    <h2>Ranglista</h2>
+    <ul>
+        <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
+    </ul>
+  </main>
   
  <router-outlet></router-outlet>
