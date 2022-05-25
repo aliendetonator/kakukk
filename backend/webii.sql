@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Máj 24. 14:21
+-- Létrehozás ideje: 2022. Máj 25. 15:43
 -- Kiszolgáló verziója: 10.4.22-MariaDB
 -- PHP verzió: 8.0.13
 
@@ -33,10 +33,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `farkasfeltoltes` (IN `infelhasznalo
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `felhasznalofeltoltes` (IN `inemail` VARCHAR(100), IN `injelszo` VARCHAR(250), IN `infelhasznalonev` VARCHAR(50))  INSERT INTO felhasznalo VALUES (inemail, injelszo, infelhasznalonev)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getboszorkanytop` ()  SELECT felhasznalonev, SUM(pont) AS pont
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getboszorkanytop` (IN `inlimit` INT, IN `inoffset` INT)  SELECT felhasznalonev, SUM(pont) AS pont
 FROM boszorkany
 GROUP BY felhasznalonev
-ORDER BY pont DESC$$
+ORDER BY pont DESC
+LIMIT inlimit
+OFFSET inoffset$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getfalusitop` (IN `inlimit` INT, IN `inoffset` INT)  SELECT felhasznalonev, SUM(pont) AS pont
 FROM falusi
@@ -84,6 +86,13 @@ CREATE TABLE `boszorkany` (
   `datum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `boszorkany`
+--
+
+INSERT INTO `boszorkany` (`felhasznalonev`, `pont`, `datum`) VALUES
+('felhasznalo', 2, '2022-05-25 14:55:54');
+
 -- --------------------------------------------------------
 
 --
@@ -125,7 +134,20 @@ INSERT INTO `farkas` (`felhasznalonev`, `pont`, `datum`) VALUES
 ('kutyavagyok', 1, '2022-05-22 17:24:24'),
 ('jozsiaszexmester', 12, '2022-05-22 17:24:24'),
 ('kutyavagyok', 1, '2022-05-22 17:24:24'),
-('jozsiaszexmester', 12, '2022-05-22 17:24:24');
+('jozsiaszexmester', 12, '2022-05-22 17:24:24'),
+('valamisemmi', 2, '2022-05-25 15:02:15'),
+('felhasznalo', 4, '2022-05-25 15:02:22'),
+('userame', 2, '2022-05-25 15:02:22'),
+('semmi', 21, '2022-05-25 15:02:59'),
+('kurtakutya', 12, '2022-05-25 15:07:17'),
+('Cilamila', 1, '2022-05-25 15:07:17'),
+('sajtoskenyer', 21, '2022-05-25 15:08:20'),
+('userame', 0, '2022-05-25 15:08:20'),
+('sajtoskenyer', 21, '2022-05-25 15:08:20'),
+('userame', 3, '2022-05-25 15:08:20'),
+('username', 12, '2022-05-25 15:09:21'),
+('userame', 4, '2022-05-25 15:09:21'),
+('valamisemmi', 23, '2022-05-25 15:10:38');
 
 -- --------------------------------------------------------
 
@@ -145,7 +167,9 @@ CREATE TABLE `felhasznalo` (
 
 INSERT INTO `felhasznalo` (`email`, `jelszo`, `felhasznalonev`) VALUES
 ('asdfg@jklmn.hu', '$2b$10$5HTAa6W.Ew67nQdGOLT/ju0OQm8DmgPfZB2oed70bLIOZ68RF4K6W', 'username'),
+('Dorombolo@meowmeow.wau', '$2b$10$4Ba7dcQtPxASHCfQpHf/aerv.YPkqpWtWAX/XJgdUqV2VFbWRdQtS', 'Cilamila'),
 ('jozsiaszexmester@gmail.com', '$2b$10$wIxt/X1Ve0xhdL5gkeaG8Omto6WWzcm9ZWUGmNvuNsTHisK/KfNci', 'jozsiaszexmester'),
+('kurtafarkukutya@wauawu.meow', '$2b$10$qn4tkngF5yrUKCuVwPvdSeKmBIbZnRHTLDRr3Ehl.2ltsi8HEr/KO', 'kurtakutya'),
 ('kutyavagyok@gmail.com', '$2b$10$CBlKFEc8lMJq5Vqvq/FUBuq.2u3pjSoeFQIoBqa56ctD4bI2r2JOi', 'kutyavagyok'),
 ('proba@email.com', 'proba', 'probababa'),
 ('sex@sex.hu', 'semmixdd', 'valamisemmi'),
