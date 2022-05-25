@@ -8,33 +8,22 @@
         <th scope="col">Pontok</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Kakukk</td>
-        <td>@twitter</td>
+    <tbody id="scrollTable" (scroll)="scrollOffset($event)">
+      <tr *ngFor = 'let data of readData'>
+        <td>{{data.index}}</td>
+        <td>{{data.felhasznalonev}}</td>
+        <td>{{data.pont}}</td>
       </tr>
     </tbody>
   </table>
   <div class="btns">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button id="0" type="button" class="btn btn-secondary">Felhasználó</button>
-      <button id="1" type="button" class="btn btn-secondary">Farkas</button>
-      <button id="2" type="button" class="btn btn-secondary">Falusi</button>
-      <button id="3" type="button" class="btn btn-secondary">Látnok</button>
-      <button id="4" type="button" class="btn btn-secondary">Boszorkány</button>
-      <button id="5"type="button" class="btn btn-secondary">Védelmező</button>
+      <button id="felhasznalo" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Felhasználó</button>
+      <button id="farkas" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Farkas</button>
+      <button id="falusi" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Falusi</button>
+      <button id="latnok" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Látnok</button>
+      <button id="boszorkany" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Boszorkány</button>
+      <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Védelmező</button>
     </div>
   </div>
 </div>
