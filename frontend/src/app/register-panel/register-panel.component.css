@@ -1,3 +1,30 @@
+*
+{
+    color: #BA621F;
+}
+main
+{
+    background-color:blue;
+}
+header
+{
+    display:flex;
+    background-color: #041C32;
+}
+.login
+{
+    display:flex;
+}
+header ul
+{
+    list-style:none;
+}
+header ul li
+{
+    display: inline-table;
+}
+
+
 .signup-popup
 {
     position: absolute;

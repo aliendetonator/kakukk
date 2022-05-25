@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginPanelComponent } from './login-panel/login-panel.component';
 import { RegisterPanelComponent } from './register-panel/register-panel.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     ReadComponent,
     LoginPanelComponent,
     RegisterPanelComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
