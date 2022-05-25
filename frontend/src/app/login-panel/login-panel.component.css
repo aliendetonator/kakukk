@@ -4,24 +4,40 @@
 }
 main
 {
-    background-color:blue;
+    background-color: #064663;
+    text-align: center;
+    padding-top: 10px;
 }
 header
 {
     display:flex;
     background-color: #041C32;
+    text-align: center;
 }
 .login
 {
     display:flex;
 }
-header ul
+main ul
 {
     list-style:none;
 }
-header ul li
+main ul li
 {
-    display: inline-table;
+    display: inline-block;
+}
+main a
+{
+    background:#04293A;
+    color: #BA621F;
+    display: block;
+	padding: 15px 40px;
+	transition: background 0.3s;
+}
+main a:hover
+{
+    background: #041C32;
+	color: #8f4e1c;
 }
 
 .login-popup
