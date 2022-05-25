@@ -1,4 +1,21 @@
-<div class="login-popup active" #loginPanel>
+<header>
+    <div  class="container mt-5">
+      
+      <h1>Vérfarkasok éjszakája</h1>
+    </div>
+    <div class="Login">
+      <ul>
+        <li><a routerLink="../register" class="btn btn-outline-primary btn-lg">Register</a></li>
+        &nbsp;
+        <li><a routerLink="../login" class="btn btn-outline-success btn-lg">Login</a></li>
+      </ul>
+    </div>
+      
+    
+  </header>
+  <main></main>
+  
+<div routerLink="../menu" class="login-popup active" #loginPanel>
     <div class="close-btn" (click)="closePanel()">&times;</div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h2>Bejelentkezés</h2>
@@ -20,3 +37,5 @@
         </div>
     </form>
 </div>
+
+<router-outlet></router-outlet>
