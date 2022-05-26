@@ -1,58 +1,30 @@
-<header>
-    <div class="container mt-5">
-
-      <h1>Vérfarkasok éjszakája</h1>
-    </div>
-</header>
-<main>
-  <div class="Inside">
-
-    <h2>A játékhoz kérem jelentkezzen be!</h2>
-    <div class="Login">
-      <ul>
-        <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
-        &nbsp;
-        <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
-      </ul>
-    </div>
-
-    <h2>Ranglista</h2>
-    <ul>
-      <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
-    </ul>
-  </div>
-</main>
-
-
 <div class="signup-popup active">
-    <a routerLink = "../menu"class="close-btn" href="">&times;</a>
+    <div routerLink="/" class="close-btn">&times;</div>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h2>Regisztráció</h2>
         <div class="form-element">
             <label for="username">Felhasználónév</label>
-            <input type="text" id="username" formControlName = "username">
+            <input type="text" id="username" formControlName="username">
         </div>
         <div class="form-element">
             <label for="email">Email</label>
-            <input type="text" id="email" formControlName = "email">
+            <input type="text" id="email" formControlName="email">
         </div>
         <div class="form-element">
             <label for="password">Jelszó</label>
-            <input type="password" id="passwordreg" formControlName = "password">
+            <input type="password" id="passwordreg" formControlName="password">
             <i class="fas fa-eye" id="togglePasswordAtReg"></i>
         </div>
         <div class="form-element">
             <label for="passwordagain">Jelszó ismét</label>
-            <input type="password" id="passwordagain" formControlName = "passwordRepeat">
+            <input type="password" id="passwordagain" formControlName="passwordRepeat">
             <i class="fas fa-eye" id="togglePasswordRepeat"></i>
         </div>
         <div class="form-element">
             <button id="signupbtn" [disabled]="!registerForm.valid">Regisztráció</button>
         </div>
         <div class="form-element">
-            <a id="show-login" href="/login">Van már fiókod? Kattints ide!</a>
+            <a id="show-login" routerLink="/login">Van már fiókod? Kattints ide!</a>
         </div>
     </form>
 </div>
-
-<router-outlet></router-outlet>

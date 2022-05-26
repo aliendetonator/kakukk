@@ -1,30 +1,5 @@
-<header>
-    <div class="container mt-5">
-
-      <h1>Vérfarkasok éjszakája</h1>
-    </div>
-</header>
-<main>
-  <div class="Inside">
-
-    <h2>A játékhoz kérem jelentkezzen be!</h2>
-    <div class="Login">
-      <ul>
-        <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
-        &nbsp;
-        <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
-      </ul>
-    </div>
-
-    <h2>Ranglista</h2>
-    <ul>
-      <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
-    </ul>
-  </div>
-</main>
-
-<div routerLink="../menu" class="login-popup active" #loginPanel>
-    <div class="close-btn" (click)="closePanel()">&times;</div>
+<div class="login-popup active">
+    <div routerLink="/" class="close-btn">&times;</div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h2>Bejelentkezés</h2>
         <div class="form-element">
@@ -41,9 +16,7 @@
             <button id="loginbtn" type="submit" [disabled]="!loginForm.valid">Bejelentkezés</button>
         </div>
         <div class="form-element">
-            <a id="show-signup" href="/register">Nincs még fiókod? Kattints ide!</a>
+            <a id="show-signup" routerLink="/register">Nincs még fiókod? Kattints ide!</a>
         </div>
     </form>
 </div>
-
-<router-outlet></router-outlet>

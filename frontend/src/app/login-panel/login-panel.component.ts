@@ -5,41 +5,35 @@ import { ApiService } from '../apiservice.service';
 @Component({
   selector: 'app-login-panel',
   templateUrl: './login-panel.component.html',
-  styleUrls: ['./login-panel.component.css']
+  styleUrls: ['./login-panel.component.css'],
 })
 export class LoginPanelComponent implements OnInit {
   @ViewChild('loginPanel') loginPanel: ElementRef;
 
-  constructor(private service: ApiService) { }
+  constructor(private service: ApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   loginForm = new FormGroup({
-    username: new FormControl('',[
+    username: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
       Validators.maxLength(20),
-      Validators.pattern('[a-zA-Z0-9_.]*')
+      Validators.pattern('[a-zA-Z0-9_.]*'),
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8)
-    ])
+      Validators.minLength(8),
+    ]),
   });
 
   onSubmit() {
     const data = {
       username: this.loginForm.value.username,
-      password: this.loginForm.value.password
-    }
-    this.service.login(data).subscribe(res => {
+      password: this.loginForm.value.password,
+    };
+    this.service.login(data).subscribe((res) => {
       console.log(res);
     });
   }
-  
-  closePanel() {
-    this.loginPanel.nativeElement.classList.remove('active');
-  }
-
 }

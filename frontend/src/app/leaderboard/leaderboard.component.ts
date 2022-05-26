@@ -31,10 +31,8 @@ export class LeaderboardComponent implements OnInit {
 
   getIdOfBtn(event: Event): void {
     let elementId: string = (event.target as Element).id;
-    console.log(elementId);
     this.data.table = elementId;
     this.getData()
-    console.log(this.data.table)
   }
 
 
@@ -54,7 +52,6 @@ export class LeaderboardComponent implements OnInit {
         res.data[i].index = i+1;
         this.readData = res.data;
       }
-      console.log(res, "res=>");
     });
   }
 }

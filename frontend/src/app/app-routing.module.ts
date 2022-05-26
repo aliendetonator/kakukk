@@ -5,16 +5,15 @@ import { RegisterPanelComponent } from './register-panel/register-panel.componen
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MenuComponent } from './menu/menu.component';
 
-const routes: Routes =
-[
-  {path:'register', component:RegisterPanelComponent},
-  {path:'login', component:LoginPanelComponent},
-  {path:'leaderboard', component:LeaderboardComponent},
-  {path:'menu', component:MenuComponent},
+const routes: Routes = [
+  { path: 'register', component: RegisterPanelComponent },
+  { path: 'login', component: LoginPanelComponent },
+  { path: 'leaderboard', component: LeaderboardComponent },
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
