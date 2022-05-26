@@ -29,7 +29,7 @@ main ul li
 }
 main a
 {
-    
+
     background:#04293A;
     color: #BA621F;
     display: block;
@@ -84,6 +84,7 @@ main h2
     width: 20px;
     height: 20px;
     background: rgb(233, 59, 59);
+    color: #000;
     border-radius: 15px;
     line-height: 18px;
     font-weight: bolder;

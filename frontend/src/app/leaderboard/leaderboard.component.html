@@ -1,29 +1,37 @@
 <header>
   <div class="container mt-5">
-    
+
     <h1>Vérfarkasok éjszakája</h1>
-  </div>    
+  </div>
 </header>
 <main>
-  <h2>A játékhoz kérem jelentkezzen be!</h2>
-  <div class="Login">
+  <div class="Inside">
+    <h2>A játékhoz kérem jelentkezzen be!</h2>
+    <div class="Login">
       <ul>
-          <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
-          &nbsp;
+        <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
+        &nbsp;
         <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
       </ul>
-  </div>
-  
-  <h2>Ranglista</h2>
-  <ul>
+    </div>
+
+    <h2>Ranglista</h2>
+    <ul>
       <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
-  </ul>
+    </ul>
+  </div>
 </main>
 
 
 <div id="container">
-  <h2>Ranglista</h2>
+
+  <div id="close">
+    <h2>Ranglista</h2>
+    <a routerLink="../menu">&times;</a>
+  </div>
+
   <table class="table table-hover">
+
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -31,6 +39,7 @@
         <th scope="col">Pontok</th>
       </tr>
     </thead>
+
     <tbody id="scrollTable" (scroll)="scrollOffset($event)">
       <tr *ngFor = 'let data of readData'>
         <td>{{data.index}}</td>
@@ -38,14 +47,17 @@
         <td>{{data.pont}}</td>
       </tr>
     </tbody>
+
   </table>
+
   <div class="btns">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button id="farkas" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Farkas</button>
-      <button id="falusi" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Falusi</button>
-      <button id="latnok" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Látnok</button>
-      <button id="boszorkany" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Boszorkány</button>
-      <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-secondary">Védelmező</button>
+      <button id="farkas" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Farkas</button>
+      <button id="falusi" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Falusi</button>
+      <button id="latnok" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Látnok</button>
+      <button id="boszorkany" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Boszorkány</button>
+      <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Védelmező</button>
     </div>
   </div>
+
 </div>

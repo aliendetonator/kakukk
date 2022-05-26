@@ -1,25 +1,28 @@
 <header>
     <div class="container mt-5">
-      
+
       <h1>Vérfarkasok éjszakája</h1>
-    </div>    
+    </div>
 </header>
 <main>
+  <div class="Inside">
+
     <h2>A játékhoz kérem jelentkezzen be!</h2>
     <div class="Login">
-        <ul>
-            <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
-            &nbsp;
-          <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
-        </ul>
+      <ul>
+        <li><a routerLink="../login" class="btn btn-lg">Bejelentkezés</a></li>
+        &nbsp;
+        <li><a routerLink="../register" class="btn btn-lg">Regisztráció</a></li>
+      </ul>
     </div>
-    
+
     <h2>Ranglista</h2>
     <ul>
-        <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
+      <li><a routerLink="../leaderboard" class="btn btn-lg">Ranglista</a></li>
     </ul>
+  </div>
 </main>
-  
+
 
 <div class="signup-popup active">
     <a routerLink = "../menu"class="close-btn" href="">&times;</a>
@@ -49,7 +52,7 @@
         <div class="form-element">
             <a id="show-login" href="/login">Van már fiókod? Kattints ide!</a>
         </div>
-    </form>    
+    </form>
 </div>
 
 <router-outlet></router-outlet>
