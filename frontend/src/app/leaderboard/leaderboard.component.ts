@@ -26,7 +26,7 @@ export class LeaderboardComponent implements OnInit {
 
 
   scrollOffset(event: Event): void{
-    
+
   }
 
   getIdOfBtn(event: Event): void {
@@ -51,6 +51,7 @@ export class LeaderboardComponent implements OnInit {
     this.service.leaderboard(this.data).subscribe((res) => {
       this.leaderboard.set(res);
       for(let i = 0; i < res.data.length; i++) {
+        res.data[i].index = i+1;
         this.readData = res.data;
       }
       console.log(res, "res=>");
