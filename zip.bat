@@ -12,10 +12,14 @@ echo (4) Exit
 echo ----------------
 echo.
 
-set /p selection="Selection: "
+echo Selection: 
+choice /c 1234 /n
+if %errorlevel%==1 goto CASE_1
+if %errorlevel%==2 goto CASE_2
+if %errorlevel%==3 goto CASE_3
+if %errorlevel%==4 goto CASE_4
+goto DEFAULT_CASE
 
-2>NUL CALL :CASE_%selection%
-IF ERRORLEVEL 1 CALL :DEFAULT_CASE
 
 :CASE_1
     echo Zipping frontend...
