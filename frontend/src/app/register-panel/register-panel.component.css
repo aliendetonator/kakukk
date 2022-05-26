@@ -1,6 +1,7 @@
 *
 {
     color: #BA621F;
+    padding:0;
 }
 main
 {
@@ -14,20 +15,21 @@ header
     background-color: #041C32;
     text-align: center;
 }
-.login
-{
-    display:flex;
-}
 main ul
 {
     list-style:none;
+    /*display: table;*/
 }
 main ul li
 {
-    display: inline-block;
+    display: block;
+    width:30%;
+    /*display:flex;*/
+    margin: 0 auto;
 }
 main a
 {
+    
     background:#04293A;
     color: #BA621F;
     display: block;
@@ -39,6 +41,17 @@ main a:hover
     background: #041C32;
 	color: #8f4e1c;
 }
+main h2
+{
+    text-align: center;
+}
+.Inside
+{
+    margin:0 auto;
+    width: 60%;
+
+}
+
 
 
 .signup-popup
