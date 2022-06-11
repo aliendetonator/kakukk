@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginPanelComponent } from './login-panel/login-panel.component';
-import { RegisterPanelComponent } from './register-panel/register-panel.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { MenuComponent } from './menu/menu.component';
+import { LoginPanelComponent } from './views/login-panel/login-panel.component';
+import { RegisterPanelComponent } from './views/register-panel/register-panel.component';
+import { LeaderboardComponent } from './views/leaderboard/leaderboard.component';
+import { MenuComponent } from './views/menu/menu.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterPanelComponent },

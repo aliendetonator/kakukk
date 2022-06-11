@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from '../apiservice.service';
+import { ApiService } from '../../services/apiservice/apiservice.service';
 
 @Component({
   selector: 'app-leaderboard',

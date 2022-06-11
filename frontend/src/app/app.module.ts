@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './views/app/app.component';
 
 import {HttpClientModule} from '@angular/common/http'
-import { ApiService } from './apiservice.service';
+import { ApiService } from './services/apiservice/apiservice.service';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LoginPanelComponent } from './login-panel/login-panel.component';
-import { RegisterPanelComponent } from './register-panel/register-panel.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { MenuComponent } from './menu/menu.component';
+import { LoginPanelComponent } from './views/login-panel/login-panel.component';
+import { RegisterPanelComponent } from './views/register-panel/register-panel.component';
+import { LeaderboardComponent } from './views/leaderboard/leaderboard.component';
+import { MenuComponent } from './views/menu/menu.component';
 
 @NgModule({
   declarations: [

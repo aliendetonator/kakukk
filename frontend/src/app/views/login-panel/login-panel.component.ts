@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../apiservice.service';
+import { ApiService } from '../../services/apiservice/apiservice.service';
 
 @Component({
   selector: 'app-login-panel',
