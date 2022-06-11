@@ -16,7 +16,11 @@ export class RegisterPanelComponent implements OnInit {
       Validators.maxLength(20),
       Validators.pattern('[a-zA-Z0-9_.]*'),
     ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(320)
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),

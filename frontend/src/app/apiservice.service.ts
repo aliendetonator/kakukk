@@ -11,24 +11,11 @@ export class ApiService {
 
   //frontend-backend kapcsolat létrehozása
 
-  apiUrl = 'http://localhost:3000';
-
-  //minden adat kiszedése a felhasználóból
-  getAllData(): Observable<any> {
-    // return this._http.get(`${this.apiUrl}/user`, {withCredentials: true});
-    return this._http.get(`${this.apiUrl}/user`);
-  }
-
-  //adat kreálás
-
-  createData(data: any): Observable<any> {
-    // return this._http.post(`${this.apiUrl}/register`, data, {withCredentials: true});
-    return this._http.post(`${this.apiUrl}/register`, data);
-  }
+  apiUrl = 'http://localhost:3000/api';
 
   // login
   login(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/login`, data);
+    return this._http.post(`${this.apiUrl}/user/login`, data);
   }
 
   //register
