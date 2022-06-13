@@ -1,4 +1,4 @@
-const db = require("../config/database-config").getDB();
+const getDB = require("../config/database-config").getDB;
 
 const leaderboard = (req, res) => {
   const data = req.body;
@@ -12,7 +12,7 @@ const leaderboard = (req, res) => {
   }
 
   let qr = `CALL get${table}top(${limit}, ${offset});`;
-  db.promise()
+  getDB().promise()
     .query(qr)
     .then((result) => {
       res.status(200).send({

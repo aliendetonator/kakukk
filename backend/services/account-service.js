@@ -1,4 +1,4 @@
-const db = require("../config/database-config").getDB();
+const getDB = require("../config/database-config").getDB;
 const bcrypt = require("bcrypt");
 
 const register = (req, res) => {
@@ -26,7 +26,7 @@ const register = (req, res) => {
   const hash = bcrypt.hashSync(pw, 10);
 
   let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
-  db.promise()
+  getDB().promise()
     .query(qr)
     .then((result) => {
       res.status(200).send({
@@ -76,7 +76,7 @@ const login = (req, res) => {
 
   let qr = `select * from felhasznalo where ${usernameOrEmail} = '${username}'`;
 
-  db.promise()
+  getDB().promise()
     .query(qr)
     .then((result) => {
       if (result[0].length === 0) {
