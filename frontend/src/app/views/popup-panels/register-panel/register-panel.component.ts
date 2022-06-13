@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../services/apiservice/apiservice.service';
+import { ApiService } from '../../../services/apiservice/apiservice.service';
 
 @Component({
   selector: 'app-register-panel',
   templateUrl: './register-panel.component.html',
-  styleUrls: ['./register-panel.component.css'],
+  styleUrls: [
+    './register-panel.component.css',
+    '../popup-panel.css',
+    '../../main.css',
+  ],
 })
 export class RegisterPanelComponent implements OnInit {
   ngOnInit(): void {}
@@ -19,7 +23,7 @@ export class RegisterPanelComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      Validators.maxLength(320)
+      Validators.maxLength(320),
     ]),
     password: new FormControl('', [
       Validators.required,

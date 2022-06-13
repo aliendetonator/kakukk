@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from '../../services/apiservice/apiservice.service';
+import { ApiService } from '../../../services/apiservice/apiservice.service';
 
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css'],
+  styleUrls: ['./leaderboard.component.css', '../../main.css'],
   template: `<button
     id="farkas"
     (click)="getIdOfBtn($event)"

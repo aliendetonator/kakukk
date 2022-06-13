@@ -1,11 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../services/apiservice/apiservice.service';
+import { ApiService } from '../../../services/apiservice/apiservice.service';
 
 @Component({
   selector: 'app-login-panel',
   templateUrl: './login-panel.component.html',
-  styleUrls: ['./login-panel.component.css'],
+  styleUrls: [
+    './login-panel.component.css',
+    '../popup-panel.css',
+    '../../main.css',
+  ],
 })
 export class LoginPanelComponent implements OnInit {
   @ViewChild('loginPanel') loginPanel: ElementRef;

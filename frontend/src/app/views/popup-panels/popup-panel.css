@@ -1,60 +1,4 @@
-*
-{
-    color: #BA621F;
-    padding:0;
-}
-main
-{
-    background-color: #064663;
-    text-align: center;
-    padding-top: 10px;
-}
-header
-{
-    display:flex;
-    background-color: #041C32;
-    text-align: center;
-}
-main ul
-{
-    list-style:none;
-    /*display: table;*/
-}
-main ul li
-{
-    display: block;
-    width:30%;
-    /*display:flex;*/
-    margin: 0 auto;
-}
-main a
-{
-    
-    background:#04293A;
-    color: #BA621F;
-    display: block;
-	padding: 15px 40px;
-	transition: background 0.3s;
-}
-main a:hover
-{
-    background: #041C32;
-	color: #8f4e1c;
-}
-main h2
-{
-    text-align: center;
-}
-.Inside
-{
-    margin:0 auto;
-    width: 60%;
-
-}
-
-
-
-.signup-popup
+.popup-panel
 {
     position: absolute;
     top: -150%;
@@ -70,7 +14,7 @@ main h2
                 opacity 200ms ease-in-out 0ms,
                 transform 20ms ease-in-out 0ms;
 }
-.signup-popup.active
+.popup-panel.active
 {
     top: 50%;
     opacity: 1;
@@ -80,7 +24,7 @@ main h2
                 transform 20ms ease-in-out 0ms;
 }
 
-.signup-popup .close-btn
+.popup-panel .close-btn
 {
     position: absolute;
     text-align: center;
@@ -92,28 +36,27 @@ main h2
     height: 20px;
     background: rgb(233, 59, 59);
     border-radius: 15px;
-    line-height: 18px;
+    line-height: 15px;
     font-weight: bolder;
     font-size: 20px;
     cursor: pointer;
-
 }
 
-.signup-popup form h2
+.popup-panel h2
 {
     text-align: center;
     margin: 10px 0px 20px;
 }
-.signup-popup form .form-element
+.popup-panel
 {
     margin: 10px 10px;
 }
-.signup-popup form .form-element label
+.popup-panel label
 {
     font-size: 15px;
 }
-.signup-popup form .form-element input[type="text"],
-.signup-popup form .form-element input[type="password"]
+.popup-panel input[type="text"],
+.popup-panel input[type="password"]
 {
     margin-top: 5px;
     display: block;
@@ -123,34 +66,38 @@ main h2
     border: 1px solid #aaa;
     border-radius: 5px;
 }
-.signup-popup form .form-element button
+.popup-panel button
 {
     width: 100%;
     height: 40px;
+    margin-top: 10px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     background-color: #eee;
-    color:rgb(146, 146, 146)
+    color:rgb(146, 146, 146);
+    transition: 
+    background 0.3s,
+    color 0.2s;
 }
 
-.signup-popup form .form-element button:enabled
+.popup-panel button:enabled
 {
-    color: #BA621F;
+    color: var(--color-brown);
     cursor: pointer;
 }
-.signup-popup form .form-element button:enabled:hover
+.popup-panel button:enabled:hover
 {
-    background-color: #064663;
+    background-color: var(--color-blue);
     color: #fff;
 }
 
-.signup-popup form .form-element button:enabled:active
+.popup-panel button:enabled:active
 {
-    background-color: #041C32;
+    background-color: var(--color-dark-blue);
 }
 
-.signup-popup form .form-element a
+.popup-panel a
 {
     display: block;
     text-align: center;
