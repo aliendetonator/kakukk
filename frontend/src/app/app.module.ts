@@ -12,6 +12,7 @@ import { LoginPanelComponent } from './views/popup-panels/login-panel/login-pane
 import { RegisterPanelComponent } from './views/popup-panels/register-panel/register-panel.component';
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
 import { MenuComponent } from './views/menu/menu.component';
+import { FaszComponent } from './views/fasz/fasz.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MenuComponent } from './views/menu/menu.component';
     LoginPanelComponent,
     RegisterPanelComponent,
     LeaderboardComponent,
-    MenuComponent
+    MenuComponent,
+    FaszComponent
   ],
   imports: [
     BrowserModule,
