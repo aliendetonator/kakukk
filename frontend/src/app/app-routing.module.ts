@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent},
   { path: 'startMenu', component: StartMenuComponent},
   { path: 'profile', component: ProfileComponent},
-  { path: '**', redirectTo: '/' },
+  { path: '**', redirectTo: '/menu' },
 ];
 
 @NgModule({
