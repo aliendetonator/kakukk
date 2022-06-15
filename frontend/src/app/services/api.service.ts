@@ -3,11 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
   //frontend-backend kapcsolat létrehozása
 
@@ -20,17 +19,15 @@ export class ApiService {
 
   //register
   register(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/register`, data);
+    return this._http.post(`${this.apiUrl}/user/register`, data);
   }
 
-//leaderboard
-  leaderboard(data: any): Observable<any>{
+  //leaderboard
+  leaderboard(data: any): Observable<any> {
     return this._http.post(`${this.apiUrl}/leaderboard`, data);
   }
 
   getUser(): Observable<any> {
     return this._http.get(`${this.apiUrl}/user`);
   }
-
-
 }
