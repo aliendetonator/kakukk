@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/apiservice/apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-panel',
@@ -14,7 +15,7 @@ import { ApiService } from '../../../services/apiservice/apiservice.service';
 export class LoginPanelComponent implements OnInit {
   @ViewChild('loginPanel') loginPanel: ElementRef;
 
-  constructor(private service: ApiService) {}
+  constructor(private service: ApiService, private route:Router) {}
 
   ngOnInit(): void {}
 
@@ -37,6 +38,7 @@ export class LoginPanelComponent implements OnInit {
     };
     this.service.login(data).subscribe((res) => {
       console.log(res);
+      this.route.navigate(['../startMenu']);
     });
   }
 }
