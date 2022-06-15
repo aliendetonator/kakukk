@@ -5,12 +5,15 @@ import { RegisterPanelComponent } from './views/popup-panels/register-panel/regi
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { MenuComponent } from './views/menu/menu.component';
+import { StartMenuComponent } from './views/start-menu/start-menu.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterPanelComponent },
   { path: 'login', component: LoginPanelComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'statistics', component: StatisticsComponent },
+  { path: 'menu', component: MenuComponent},
+  { path: 'startMenu', component: StartMenuComponent},
   { path: '**', redirectTo: '/' },
 ];
 

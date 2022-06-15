@@ -13,6 +13,7 @@ import { RegisterPanelComponent } from './views/popup-panels/register-panel/regi
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
 import { MenuComponent } from './views/menu/menu.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
+import { StartMenuComponent } from './views/start-menu/start-menu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
     RegisterPanelComponent,
     LeaderboardComponent,
     MenuComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    StartMenuComponent
   ],
   imports: [
     BrowserModule,
