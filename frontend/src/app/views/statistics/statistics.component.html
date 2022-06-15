@@ -1,31 +1,36 @@
-<section>
+<app-profile></app-profile>
 
-    <h2>Satisztika:</h2>
-    <h3>osz</h3>
-    <table class="table table-hover" id="summary">
-      <thead>
-          <th>Szerep</th>
-          <th>Összpontszám</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>fostos</td>
-          <td>kakis</td>
-        </tr>
-        </tbody>
-    </table>
+<div id="container">
 
-    <table class="table table-striped" style="display: none" id="role">
-      <thead>
-          <th>Dátum</th>
-          <th>Pontszám</th>
-      </thead>
-      <tbody>
+  <div id="close">
+        <h2>Statisztika</h2>
+        <h3>Össz</h3>
+        <a routerLink="/profile">&times;</a>
+    </div>
+  <table class="table table-hover" id="summary">
+    <thead>
+      <th>Szerep</th>
+      <th>Összpontszám</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>fostos</td>
+        <td>kakis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped" style="display: none" id="role">
+    <thead>
+      <th>Dátum</th>
+      <th>Pontszám</th>
+    </thead>
+    <tbody>
         <tr>
           <td>kakukk</td>
           <td>ratyi</td>
         </tr>
-        </tbody>
+      </tbody>
     </table>
 
 
@@ -39,4 +44,5 @@
         <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Védelmező</button>
       </div>
     </div>
-</section>
+
+</div>
