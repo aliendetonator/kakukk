@@ -1,3 +1,4 @@
 <h1>Welcome to your profile!</h1>
-<h2>There might be your name</h2>
+<h2 *ngIf="this.protectedData?.felhasznalonev">{{this.protectedData.felhasznalonev}}</h2>
+<h3 *ngIf="this.protectedData?.email">{{this.protectedData.email}}</h3>
 <a routerLink="/startMenu" class="btn btn-lg">back</a>

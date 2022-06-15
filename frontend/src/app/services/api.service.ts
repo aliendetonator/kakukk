@@ -28,4 +28,9 @@ export class ApiService {
     return this._http.post(`${this.apiUrl}/leaderboard`, data);
   }
 
+  getUser(): Observable<any> {
+    return this._http.get(`${this.apiUrl}/user`);
+  }
+
+
 }

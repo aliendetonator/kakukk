@@ -1,37 +1,36 @@
 const getDB = require("../config/database-config").getDB;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
-  const data = req.body;
+  const {email, password, passwordRepeat, username} = req.body;
 
-  const email = data.email;
-  const pw = data.password;
-  const pwRepeat = data.passwordRepeat;
-  const username = data.username;
-
-  if (email === null || pw === null || username === null || pwRepeat === null) {
+  if (email === null || password === null || username === null || passwordRepeat === null) {
     return res.status(400).send({
       message: "Hiányzó adat!",
       code: "missing_data",
     });
   }
 
-  if (pw !== pwRepeat) {
+  if (password !== passwordRepeat) {
     return res.status(400).send({
       message: "A két jelszó nem egyezik!",
       code: "password_not_match",
     });
   }
 
-  const hash = bcrypt.hashSync(pw, 10);
+  const hash = bcrypt.hashSync(password, 10);
 
   let qr = `CALL felhasznalofeltoltes('${email}','${hash}','${username}')`;
   getDB().promise()
     .query(qr)
     .then((result) => {
+      const token = jwt.sign({ data: result[0][0] }, process.env.SECRET);
       res.status(200).send({
         message: "Sikeres regisztráció!",
         code: "register_success",
+        data: result[0][0],
+        token: token
       });
     })
     .catch((err) => {
@@ -60,12 +59,9 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  const data = req.body;
+  const {username, password} = req.body;
 
-  const username = data.username;
-  const pw = data.password;
-
-  if (username === null || pw === null) {
+  if (username === null || password === null) {
     return res.status(400).send({
       message: "Hiányzó adat!",
       code: "missing_data",
@@ -86,7 +82,7 @@ const login = (req, res) => {
         });
       }
 
-      const pwMatch = bcrypt.compareSync(pw, result[0][0].jelszo);
+      const pwMatch = bcrypt.compareSync(password, result[0][0].jelszo);
       if (!pwMatch) {
         return res.status(400).send({
           message: "Hibás jelszó!",
@@ -94,9 +90,12 @@ const login = (req, res) => {
         });
       }
 
+      const token = jwt.sign({ data: result[0][0] }, process.env.SECRET);
       res.status(200).send({
         message: "Sikeres bejelentkezés!",
         code: "login_success",
+        data: result[0][0],
+        token: token
       });
     })
     .catch((err) => {
@@ -108,7 +107,12 @@ const login = (req, res) => {
     });
 };
 
+const getProfile = (req, res) => {
+  res.status(200).send(req.user);
+}
+
 module.exports = {
   register,
   login,
+  getProfile
 };

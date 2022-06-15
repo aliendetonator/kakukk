@@ -1,5 +1,177 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    --color-orange: #BA621F;
+    --color-brown: #8f4e1c;
+    --color-blue: #064663;
+    --color-dark-blue: #04293A;
+    --color-darker-blue: #041C32;
+  
+  color: var(--color-orange);
+  padding:0;
+}
+
 html
 {
-  background: #064663;
+
+    
+  background: var(--color-blue);
+
+}
+
+main
+{
+    background-color: var(--color-blue);
+    text-align: center;
+    padding-top: 10px;
+}
+header
+{
+    display:flex;
+    background-color: var(--color-dark-blue);
+    text-align: center;
+}
+main ul
+{
+    list-style:none;
+    /*display: table;*/
+}
+main ul li
+{
+    display: block;
+    width:30%;
+    /*display:flex;*/
+    margin: 0 auto;
+}
+main a
+{
+    
+    background: var(--color-dark-blue);
+    color: var(--color-orange);
+    display: block;
+	padding: 15px 40px;
+	transition: 
+        background 0.3s,
+        color 0.3s;
+}
+main a:hover
+{
+    background: var(--color-darker-blue);
+	color: var(--color-brown);
+}
+main h2
+{
+    text-align: center;
+}
+.Inside
+{
+    margin:0 auto;
+    width: 60%;
+
+}
+
+
+.popup-panel
+{
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    padding: 20px 30px;
+    background: #ffff;
+    box-shadow: 15px 30px 20px 10px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    transition: top 0ms ease-in-out 200ms,
+                opacity 200ms ease-in-out 0ms,
+                transform 20ms ease-in-out 0ms;
+}
+.popup-panel.active
+{
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    transition: top 0ms ease-in-out 0ms,
+                opacity 200ms ease-in-out 0ms,
+                transform 20ms ease-in-out 0ms;
+}
+
+.popup-panel .close-btn
+{
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: rgb(233, 59, 59);
+    border-radius: 15px;
+    line-height: 15px;
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup-panel h2
+{
+    text-align: center;
+    margin: 10px 0px 20px;
+}
+.popup-panel
+{
+    margin: 10px 10px;
+}
+.popup-panel label
+{
+    font-size: 15px;
+}
+.popup-panel input[type="text"],
+.popup-panel input[type="password"]
+{
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+.popup-panel button
+{
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #eee;
+    color:rgb(146, 146, 146);
+    transition: 
+    background 0.3s,
+    color 0.2s;
+}
+
+.popup-panel button:enabled
+{
+    color: var(--color-brown);
+    cursor: pointer;
+}
+.popup-panel button:enabled:hover
+{
+    background-color: var(--color-blue);
+    color: #fff;
+}
+
+.popup-panel button:enabled:active
+{
+    background-color: var(--color-dark-blue);
+}
+
+.popup-panel a
+{
+    display: block;
+    text-align: center;
+    font-weight: 100;
 }

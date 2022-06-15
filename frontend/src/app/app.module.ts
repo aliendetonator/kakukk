@@ -4,25 +4,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './views/app/app.component';
 
-import {HttpClientModule} from '@angular/common/http'
-import { ApiService } from './services/apiservice/apiservice.service';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { ApiService } from './services/api.service';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LoginPanelComponent } from './views/popup-panels/login-panel/login-panel.component';
-import { RegisterPanelComponent } from './views/popup-panels/register-panel/register-panel.component';
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
-import { MenuComponent } from './views/menu/menu.component';
 import { StatisticsComponent } from './views/popup-panels/statistics/statistics.component';
 import { StartMenuComponent } from './views/start-menu/start-menu.component';
 import { ProfileComponent } from './views/profile/profile.component';
-
+import { AuthModule } from './auth/auth/auth.module';
+import { InterceptorServiceService } from './services/interceptor-service.service';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPanelComponent,
-    RegisterPanelComponent,
     LeaderboardComponent,
-    MenuComponent,
     StatisticsComponent,
     StartMenuComponent,
     ProfileComponent
@@ -32,9 +27,14 @@ import { ProfileComponent } from './views/profile/profile.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorServiceService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

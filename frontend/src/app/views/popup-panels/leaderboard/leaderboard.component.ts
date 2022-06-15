@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from '../../../services/apiservice/apiservice.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -16,8 +17,9 @@ import { ApiService } from '../../../services/apiservice/apiservice.service';
   </button>`,
 })
 export class LeaderboardComponent implements OnInit {
-  constructor(private service: ApiService) {}
+  constructor(private service: ApiService, private authService: AuthService) {}
 
+  isLogin: boolean = false;
   leaderboard = new Leaderboard();
   readData: any;
   data = {
@@ -27,6 +29,9 @@ export class LeaderboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    if (this.authService.getToken()) {
+      this.isLogin = true;
+    }
     this.getData();
   }
 
