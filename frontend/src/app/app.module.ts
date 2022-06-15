@@ -14,6 +14,7 @@ import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboa
 import { MenuComponent } from './views/menu/menu.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { StartMenuComponent } from './views/start-menu/start-menu.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StartMenuComponent } from './views/start-menu/start-menu.component';
     LeaderboardComponent,
     MenuComponent,
     StatisticsComponent,
-    StartMenuComponent
+    StartMenuComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
