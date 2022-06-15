@@ -4,7 +4,8 @@ import { ApiService } from 'src/app/services/apiservice/apiservice.service';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.css',
+  '../popup-panel.css',]
 })
 export class StatisticsComponent implements OnInit {
 
