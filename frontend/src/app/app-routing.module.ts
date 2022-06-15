@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'statistics', component: StatisticsComponent },
+  { path: 'statistics', canActivate: [AuthGuardService], component: StatisticsComponent },
   { path: 'menu', canActivate: [AuthGuardService],component: StartMenuComponent},
   { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
   { path: '**', component: NavbarComponent},
