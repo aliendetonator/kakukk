@@ -1,0 +1,23 @@
+<app-menu></app-menu>
+<div class="popup-panel login-popup active">
+    <div routerLink="/menu" class="close-btn">&times;</div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h2>Bejelentkezés</h2>
+        <div class="form-element">
+            <label for="username">Felhasználónév</label>
+            <input type="text" id="username" formControlName="username">
+        </div>
+        <div class="form-element">
+            <label for="password">Jelszó</label>
+            <input type="password" id="password" formControlName="password">
+            <!-- jelszóhoz szem ikon -->
+            <i class="fas fa-eye" id="togglePassword"></i>
+        </div>
+        <div class="form-element">
+            <button id="loginbtn" type="submit" [disabled]="!loginForm.valid">Bejelentkezés</button>
+        </div>
+        <div class="form-element">
+            <a id="show-signup" routerLink="/register">Nincs még fiókod? Kattints ide!</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,44 @@
+<div *ngIf="this.isLogin">
+    <app-start-menu></app-start-menu>
+</div>
+<div *ngIf="!this.isLogin">
+    <app-navbar></app-navbar>
+</div>
+<div id="container">
+
+    <div id="close">
+        <h2>Ranglista</h2>
+        <a routerLink="/">&times;</a>
+    </div>
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Felhasználónév</th>
+                <th scope="col">Pontok</th>
+            </tr>
+        </thead>
+
+        <tbody id="scrollTable" (scroll)="scrollOffset($event)">
+            <tr *ngFor='let data of readData'>
+                <td>{{data.index}}</td>
+                <td>{{data.felhasznalonev}}</td>
+                <td>{{data.pont}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <div class="btns">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button id="farkas" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Farkas</button>
+            <button id="falusi" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Falusi</button>
+            <button id="latnok" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Látnok</button>
+            <button id="boszorkany" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Boszorkány</button>
+            <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Védelmező</button>
+        </div>
+    </div>
+
+</div>

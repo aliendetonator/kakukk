@@ -1,0 +1,10 @@
+<h1>Welcome to your profile!</h1>
+<div *ngIf="this.protectedData?.felhasznalonev">
+<h2>Felhasználóneved</h2>
+<p>{{this.protectedData.felhasznalonev}}</p>
+</div>
+<div *ngIf="this.protectedData?.email">
+<h2>E-mail címed</h2>
+<p>{{this.protectedData.email}}</p>
+</div>
+<a routerLink="/startMenu" class="btn btn-lg">back</a>

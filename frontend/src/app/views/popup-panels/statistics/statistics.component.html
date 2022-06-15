@@ -1,0 +1,64 @@
+<app-profile></app-profile>
+
+<div id="container">
+
+  <div id="close">
+        <h2>Statisztika</h2>
+        <h3>Össz</h3>
+        <a routerLink="/profile" class="close-btn">&times;</a>
+    </div>
+  <table class="table table-hover" id="summary">
+    <thead>
+      <th>Szerep</th>
+      <th>Összpontszám</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Falusi</td>
+        <td>ratykó</td>
+      </tr>
+      <tr>
+        <td>Farkas</td>
+        <td>kakis</td>
+      </tr>
+      <tr>
+        <td>Védelmező</td>
+        <td>kakis</td>
+      </tr>
+      <tr>
+        <td>Boszorkány</td>
+        <td>kakis</td>
+      </tr>
+      <tr>
+        <td>Látnok</td>
+        <td>kakis</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped" style="display: none" id="role">
+    <thead>
+      <th>Dátum</th>
+      <th>Pontszám</th>
+    </thead>
+    <tbody>
+        <tr>
+          <td>kakukk</td>
+          <td>ratyi</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <div class="btns">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button id="ossz" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Összesített</button>
+        <button id="farkas" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Farkas</button>
+        <button id="falusi" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Falusi</button>
+        <button id="latnok" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Látnok</button>
+        <button id="boszorkany" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Boszorkány</button>
+        <button id="vedelmezo" (click)="getIdOfBtn($event)" type="button" class="btn btn-dark">Védelmező</button>
+      </div>
+    </div>
+
+</div>

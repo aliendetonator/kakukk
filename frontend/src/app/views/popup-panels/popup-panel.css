@@ -1,75 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-*{
-    --color-orange: #BA621F;
-    --color-brown: #8f4e1c;
-    --color-blue: #064663;
-    --color-dark-blue: #04293A;
-    --color-darker-blue: #041C32;
-  
-  color: var(--color-orange);
-  padding:0;
-}
-
-html
-{
-
-    
-  background: var(--color-blue);
-
-}
-
-main
-{
-    background-color: var(--color-blue);
-    text-align: center;
-    padding-top: 10px;
-}
-header
-{
-    display:flex;
-    background-color: var(--color-dark-blue);
-    text-align: center;
-}
-main ul
-{
-    list-style:none;
-    /*display: table;*/
-}
-main ul li
-{
-    display: block;
-    width:30%;
-    /*display:flex;*/
-    margin: 0 auto;
-}
-main a
-{
-    
-    background: var(--color-dark-blue);
-    color: var(--color-orange);
-    display: block;
-	padding: 15px 40px;
-	transition: 
-        background 0.3s,
-        color 0.3s;
-}
-main a:hover
-{
-    background: var(--color-darker-blue);
-	color: var(--color-brown);
-}
-main h2
-{
-    text-align: center;
-}
-.Inside
-{
-    margin:0 auto;
-    width: 60%;
-
-}
-
-
 .popup-panel
 {
     position: absolute;
@@ -148,7 +76,7 @@ main h2
     font-size: 16px;
     background-color: #eee;
     color:rgb(146, 146, 146);
-    transition: 
+    transition:
     background 0.3s,
     color 0.2s;
 }
