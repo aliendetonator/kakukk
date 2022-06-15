@@ -8,6 +8,7 @@
   border-radius: 10px;
   width: 600px;
   height: auto;
+  padding: 2.5%;
 }
 
 h2 {
@@ -27,7 +28,7 @@ tbody {
 thead, tbody tr {
   display: table;
   width: 100%;
-  table-layout: fixed;/* even columns width , fix width of table too*/
+  table-layout: fixed;
 }
 
 button

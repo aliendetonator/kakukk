@@ -12,7 +12,7 @@ import { LoginPanelComponent } from './views/popup-panels/login-panel/login-pane
 import { RegisterPanelComponent } from './views/popup-panels/register-panel/register-panel.component';
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
 import { MenuComponent } from './views/menu/menu.component';
-import { StatisticsComponent } from './views/statistics/statistics.component';
+import { StatisticsComponent } from './views/popup-panels/statistics/statistics.component';
 import { StartMenuComponent } from './views/start-menu/start-menu.component';
 import { ProfileComponent } from './views/profile/profile.component';
 
