@@ -1,9 +1,14 @@
-<app-menu></app-menu>
+<div *ngIf="this.isLogin">
+    <app-start-menu></app-start-menu>
+</div>
+<div *ngIf="!this.isLogin">
+    <app-navbar></app-navbar>
+</div>
 <div id="container">
 
     <div id="close">
         <h2>Ranglista</h2>
-        <a routerLink="/menu">&times;</a>
+        <a routerLink="/">&times;</a>
     </div>
 
     <table class="table table-hover">
