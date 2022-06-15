@@ -12,13 +12,9 @@ import { LoginPanelComponent } from './views/popup-panels/login-panel/login-pane
 import { RegisterPanelComponent } from './views/popup-panels/register-panel/register-panel.component';
 import { LeaderboardComponent } from './views/popup-panels/leaderboard/leaderboard.component';
 import { MenuComponent } from './views/menu/menu.component';
-<<<<<<< HEAD
-import { FaszComponent } from './views/fasz/fasz.component';
-=======
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { StartMenuComponent } from './views/start-menu/start-menu.component';
 import { ProfileComponent } from './views/profile/profile.component';
->>>>>>> bd79e9012741bf802ba4291a418bae685dbdbf79
 
 @NgModule({
   declarations: [
@@ -27,13 +23,9 @@ import { ProfileComponent } from './views/profile/profile.component';
     RegisterPanelComponent,
     LeaderboardComponent,
     MenuComponent,
-<<<<<<< HEAD
-    FaszComponent
-=======
     StatisticsComponent,
     StartMenuComponent,
     ProfileComponent
->>>>>>> bd79e9012741bf802ba4291a418bae685dbdbf79
   ],
   imports: [
     BrowserModule,
