@@ -1,0 +1,15 @@
+.lobby h1
+{
+    color: #BA621F;
+    font-size: 30px;
+}
+.lobby
+{
+    background-color: pink;
+    width: 50%;
+    height: 50%;
+    margin-left: 50%;
+    margin-right: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

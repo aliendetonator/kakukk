@@ -14,6 +14,7 @@ import { LoginPanelComponent } from './login-panel/login-panel.component';
 import { RegisterPanelComponent } from './register-panel/register-panel.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MenuComponent } from './menu/menu.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MenuComponent } from './menu/menu.component';
     LoginPanelComponent,
     RegisterPanelComponent,
     LeaderboardComponent,
-    MenuComponent
+    MenuComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,
