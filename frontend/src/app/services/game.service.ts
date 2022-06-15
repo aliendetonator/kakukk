@@ -9,6 +9,10 @@ export class GameService {
   constructor(private _http: HttpClient) { }
   
   apiUrl = 'http://localhost:3000/api/game';
+  
+  getChanges(data: any): Observable<any> {
+    return this._http.post(`${this.apiUrl}`, data);
+  }
 
   getLobby(id: string): Observable<any> {
     return this._http.get(`${this.apiUrl}?lobby=${id}`);
@@ -26,7 +30,7 @@ export class GameService {
     return this._http.post(`${this.apiUrl}/leave`, data);
   }
 
-  getChanges(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}`, data);
+  createLobby(data: any): Observable<any> {
+    return this._http.post(`${this.apiUrl}/createLobby`, data);
   }
 }

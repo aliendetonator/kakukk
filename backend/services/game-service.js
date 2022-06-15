@@ -48,46 +48,56 @@ const getLobby = (req, res) => {
 };
 
 const leaveLobby = (req, res) => {
-    const username = req.user.felhasznalonev;
+  const username = req.user.felhasznalonev;
 
-    const qr = `CALL RemoveFromLobby('${username}')`;
-    getDB().promise()
-        .query(qr)
-        .then((result) => {
-            res.status(200).send({
-                message: "Kiléptél a lobbyból!",
-                code: "left_the_lobby",
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(400).send({
-                message: "Ismeretlen hiba!",
-                code: "unknown_error",
-            });
-        });
-}
+  const qr = `CALL RemoveFromLobby('${username}')`;
+  getDB()
+    .promise()
+    .query(qr)
+    .then((result) => {
+      res.status(200).send({
+        message: "Kiléptél a lobbyból!",
+        code: "left_the_lobby",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send({
+        message: "Ismeretlen hiba!",
+        code: "unknown_error",
+      });
+    });
+};
 
-const joinLobby = (req, res) => {
-    const username = req.user.felhasznalonev;
+const joinLobby = (req, res, lobby) => {
+  const username = req.user.felhasznalonev;
+  lobby = lobby ?? req.query.lobby;
 
-    const qr = `CALL JoinLobby('${username}')`;
-    getDB().promise()
-        .query(qr)
-        .then((result) => {
-            res.status(200).send({
-                message: "Csatlakoztál a lobbyhoz!",
-                code: "joined_the_lobby",
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(400).send({
-                message: "Ismeretlen hiba!",
-                code: "unknown_error",
-            });
-        });
-}
+  if (lobby !== undefined) {
+    return res.status(400).send({
+      error: "Nem adtál meg lobbyt!",
+      code: "lobby_not_defined",
+    });
+  }
+
+  const qr = `CALL JoinLobby('${username}', ${lobby})`;
+  getDB()
+    .promise()
+    .query(qr)
+    .then((result) => {
+      res.status(200).send({
+        message: "Csatlakoztál a lobbyhoz!",
+        code: "joined_the_lobby",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send({
+        message: "Ismeretlen hiba!",
+        code: "unknown_error",
+      });
+    });
+};
 
 const checkChange = (lobby, playerCount) => {
   const qr = `CALL GetLobby('${lobby}')`;
@@ -98,7 +108,7 @@ const checkChange = (lobby, playerCount) => {
       resp = {
         data: result[0][0],
         changed: false,
-        error: false
+        error: false,
       };
       if (result[0][0].length !== playerCount) {
         resp.changed = true;
@@ -108,7 +118,7 @@ const checkChange = (lobby, playerCount) => {
     .catch((err) => {
       console.log(err);
       return {
-        error: true
+        error: true,
       };
     });
 };
@@ -141,9 +151,50 @@ const getChanges = (req, res) => {
   });
 };
 
+const lobbyAvailable = (lobby) => {
+  const qr = `CALL GetLobby('${lobby}')`;
+  getDB()
+    .promise()
+    .query(qr)
+    .then((result) => {
+      if (result[0][0].length > 0) return false;
+
+      return true;
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
+};
+
+const generateLobbyName = () => {
+  const random = (Math.random() + 1).toString(36);
+  return random.substring(random.length - 6);
+};
+
+const createLobby = (req, res) => {
+  const username = req.user.felhasznalonev;
+  var lobby = generateLobbyName();
+  var tries = 0;
+  while (!lobbyAvailable(lobby)) {
+    if (tries > 100) {
+      return res.status(400).send({
+        error: "Nem sikerült létrehozni a lobbyt!",
+        code: "lobby_creation_failed",
+      });
+    }
+    lobby = generateLobbyName();
+    tries++;
+  }
+
+  joinLobby(req, res, lobby);
+
+};
+
 module.exports = {
   getLobby,
   leaveLobby,
   joinLobby,
   getChanges,
+  createLobby,
 };
