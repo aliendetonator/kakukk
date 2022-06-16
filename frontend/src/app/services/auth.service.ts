@@ -7,7 +7,11 @@ export class AuthService {
   constructor() {}
 
   getUserDetails() {
-    return localStorage.getItem('userDetails') ?? null;
+    const userData = localStorage.getItem('userData');
+    if (userData !== null && userData !== undefined){
+      return JSON.parse(userData);
+    }
+    return null;
   }
   setUserData(res: any) {
     this.setDataInLocalStorage(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-statistics',
@@ -12,26 +13,27 @@ export class StatisticsComponent implements OnInit {
 
   constructor(
     public datepipe: DatePipe,
-    private service: ApiService
+    private service: ApiService,
+    private auth: AuthService
     ) { }
 
   readData:any;
 
   statistics = new Statistics();
   data={
-    user: "userame",
+    user: this.auth.getUserDetails().felhasznalonev,
     id:"ossz",
     offset:0
   };
 
 
   ngOnInit(): void {
+    console.log(this.data.user)
   }
 
   getIdOfBtn(event: Event): void {
     let elementId: string = (event.target as Element).id;
     this.data.id = elementId;
-    console.log(this.data.id);
     this.checkTables();
     this.getData();
 
@@ -61,14 +63,13 @@ export class StatisticsComponent implements OnInit {
   }
   getData(): void
   {
-
     this.service.statistics(this.data).subscribe((result) => {
       this.statistics.set(result);
       if(result.data.length != 0) {
         for(let i = 0; i < result.data.length; i++) {
-          console.log(result.data[i].datum);
+
           result.data[i].datum = this.datepipe.transform(result.data[i].datum, 'yyyy-MM-dd HH:mm');
-          console.log(result.data[i].datum);
+
           this.readData = result.data;
         }
       }
@@ -81,6 +82,7 @@ export class StatisticsComponent implements OnInit {
   getUser(): void {
     this.service.getUser().subscribe(res => {
       this.data.user = res;
+      console.log(this.data.user)
     });
   }
 
