@@ -1,15 +1,36 @@
 .lobby h1
 {
     color: #BA621F;
-    font-size: 30px;
+    font-size: 40px;
 }
 .lobby
 {
-    background-color: pink;
-    width: 50%;
-    height: 50%;
-    margin-left: 50%;
-    margin-right: 50%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    position: absolute;
+    background-color: #041C32;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 600px;
+    width: 900px;
+    padding: 15px;
+    border-radius: 25px;
+    box-shadow: 15px 15px 20px 10px #00000060;
+}
+.header
+{
+    border-radius: 20px 20px 0px 0px;
+    background-color: #064663;
+    width: auto;
+    height: 80px;
+    text-align: center;
+    display: flex;
+    padding-left: 3%;
+    place-items: center;
+}
+.playerContainer
+{
+    margin: 3%;
+    display: flex; 
+	flex-direction: row;
+	flex-wrap: wrap;
 }
