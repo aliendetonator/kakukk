@@ -56,6 +56,44 @@
     padding: 0;
   
   }
-  
+  input
+  {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+  }
+  button
+  {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #eee;
+    color:rgb(146, 146, 146);
+    transition:
+    background 0.3s,
+    color 0.2s;
+  }
+  button:enabled
+{
+  color: var(--color-brown);
+  cursor: pointer;
+}
+
+  button:enabled:hover
+  {
+    background-color: var(--color-blue);
+    color: #fff;
+  }
+  button:enabled:active
+  {
+    background-color: var(--color-dark-blue);
+  }
   
   
