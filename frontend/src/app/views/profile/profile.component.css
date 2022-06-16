@@ -1,0 +1,29 @@
+*
+{
+    text-align: center;
+}
+ul 
+{
+    list-style:none;
+}
+ul li
+{
+    display: block;
+    width:30%;
+    margin: 0 auto;
+}
+a
+{   
+    background: var(--color-dark-blue);
+    color: var(--color-orange);
+    display: block;
+	padding: 15px 40px;
+	transition: 
+        background 0.3s,
+        color 0.3s;
+}
+a:hover
+{
+    background: var(--color-darker-blue);
+	color: var(--color-brown);
+}

@@ -1,10 +1,21 @@
-<h1>Welcome to your profile!</h1>
+<html>
+<header>
+    <div class="container mt-5">
+        <h1>Welcome to your profile!</h1>
+    </div>
+</header>
+<main>
 <div *ngIf="this.protectedData?.felhasznalonev">
-<h2>Felhasználóneved</h2>
-<p>{{this.protectedData.felhasznalonev}}</p>
+    <h2>Felhasználóneved</h2>
+    <p>{{this.protectedData.felhasznalonev}}</p>
 </div>
 <div *ngIf="this.protectedData?.email">
-<h2>E-mail címed</h2>
-<p>{{this.protectedData.email}}</p>
+    <h2>E-mail címed</h2>
+    <p>{{this.protectedData.email}}</p>
 </div>
-<a routerLink="/startMenu" class="btn btn-lg">back</a>
+<ul>
+    <li><a routerLink="/statistics" class="btn btn-lg">Statisztikák</a></li>
+    <li><a routerLink="/startMenu" class="btn btn-lg">back</a></li>
+</ul>
+</main>
+</html>
