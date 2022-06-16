@@ -22,8 +22,8 @@ export class GameService {
     return this._http.get(`${this.apiUrl}?user=${username}`);
   }
 
-  joinLobby(): Observable<any> {
-    return this._http.get(`${this.apiUrl}/join`);
+  joinLobby(id:string): Observable<any> {
+    return this._http.get(`${this.apiUrl}/join?lobby=${id}`);
   }
 
   leaveLobby(data: any): Observable<any> {

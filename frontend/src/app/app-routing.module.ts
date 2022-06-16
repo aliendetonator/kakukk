@@ -9,6 +9,7 @@ import { RegisterComponent } from './auth/components/register/register.component
 import { LoginComponent } from './auth/components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LobbyComponent } from './lobby/lobby.component';
+import { JoinLobbyComponent } from './views/popup-panels/join-lobby/join-lobby.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'menu', canActivate: [AuthGuardService],component: StartMenuComponent},
   { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
   { path: 'lobby', component: LobbyComponent},
+  { path: 'joinLobby', component: JoinLobbyComponent},
   { path: '**', component: NavbarComponent},
 ];
 
