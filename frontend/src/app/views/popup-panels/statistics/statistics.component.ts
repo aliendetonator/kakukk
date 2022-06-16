@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-statistics',
@@ -9,16 +10,17 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor(private service: ApiService) { }
+  constructor(
+    public datepipe: DatePipe,
+    private service: ApiService
+    ) { }
 
   readData:any;
 
   statistics = new Statistics();
   data={
+    user: "userame",
     id:"ossz",
-    summaryTable: document.getElementById("summary"),
-    roleTable: document.getElementById("role"),
-    limit: 10,
     offset:0
   };
 
@@ -31,6 +33,7 @@ export class StatisticsComponent implements OnInit {
     this.data.id = elementId;
     console.log(this.data.id);
     this.checkTables();
+    this.getData();
 
     const name = document.getElementById("name");
     if(name != null) {
@@ -56,15 +59,31 @@ export class StatisticsComponent implements OnInit {
       }
     }
   }
-  getData(table:any): void
+  getData(): void
   {
-    this.service.statistics(table).subscribe((res) => {
-      this.statistics.set(res);
-      for(let i = 0; i < res.data.length; i++) {
-        this.readData = res.data;
+
+    this.service.statistics(this.data).subscribe((result) => {
+      this.statistics.set(result);
+      if(result.data.length != 0) {
+        for(let i = 0; i < result.data.length; i++) {
+          console.log(result.data[i].datum);
+          result.data[i].datum = this.datepipe.transform(result.data[i].datum, 'yyyy-MM-dd HH:mm');
+          console.log(result.data[i].datum);
+          this.readData = result.data;
+        }
+      }
+      else {
+        this.readData = result.data;
       }
     })
   }
+
+  getUser(): void {
+    this.service.getUser().subscribe(res => {
+      this.data.user = res;
+    });
+  }
+
 }
 
 
