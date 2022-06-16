@@ -18,7 +18,6 @@ export class AuthService {
       'userData',
       JSON.stringify(res.data)
     );
-    console.log(res.token)
     this.setDataInLocalStorage('token', res.token);
   }
   setDataInLocalStorage(varname: string, data: any) {

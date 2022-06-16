@@ -25,10 +25,6 @@ export class StartMenuComponent implements OnInit {
     });
   }
 
-  goToLobby() {
-    this.router.navigate(['/lobby']);
-  }
-
   logout() {
     this.authService.clearStorage();
     this.router.navigate(['']);

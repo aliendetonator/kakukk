@@ -48,6 +48,8 @@ const getLobby = (req, res) => {
         });
       }
 
+      console.log(result[0][0]);
+
       res.status(200).send({
         message: "Sikeres kérés!",
         code: "success",
@@ -71,7 +73,7 @@ const leaveLobby = (req, res, sendres) => {
     .promise()
     .query(qr)
     .then((result) => {
-      if(!sendres) return true;
+      if (!sendres) return true;
       res.status(200).send({
         message: "Kiléptél a lobbyból!",
         code: "left_the_lobby",
@@ -87,19 +89,44 @@ const leaveLobby = (req, res, sendres) => {
     });
 };
 
-const joinLobby = (req, res, lobby) => {
+const lobbyExists = (lobby) => {
+  const qr = `CALL GetLobby('${lobby}')`;
+  return new Promise((resolve, reject) => {
+    return getDB()
+      .promise()
+      .query(qr)
+      .then((result) => {
+        if (result[0][0].length === 0) return false;
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      })
+      .then((result) => {
+        if (result) {
+          resolve(result);
+        }
+        reject(result);
+      });
+  });
+};
+
+const joinLobby = (req, res, lobby, create) => {
   const username = req.user.felhasznalonev;
   lobby = lobby || req.query.lobby;
- 
+
   if (lobby === undefined) {
     return res.status(400).send({
-      error: "Nem adtál meg lobbyt!",
+      message: "Nem adtál meg lobbyt!",
       code: "lobby_not_defined",
     });
   }
 
-  const qr = `CALL JoinLobby('${username}', '${lobby}')`;
-  getDB()
+  
+  const join = () => {
+    const qr = `CALL JoinLobby('${username}', '${lobby}')`;
+    getDB()
     .promise()
     .query(qr)
     .then((result) => {
@@ -109,48 +136,65 @@ const joinLobby = (req, res, lobby) => {
       });
     })
     .catch((err) => {
-      if(err.code === "ER_DUP_ENTRY") {
+      if (err.code === "ER_DUP_ENTRY") {
         leaveLobby(req, res, false);
         return joinLobby(req, res, lobby);
       }
       console.log(err);
-      
+
       res.status(400).send({
         message: "Ismeretlen hiba!",
         code: "unknown_error",
       });
     });
+  }
+
+  if(create){
+    return join();
+  }
+  
+  lobbyExists(lobby).then((exists) => {
+    join();
+  }).catch(() => {
+    return res.status(400).send({
+      message: "Nincs ilyen lobby!",
+      code: "lobby_not_found",
+    });
+  });
+
+
+  
 };
 
 const checkChange = (lobby, playerCount) => {
   const qr = `CALL GetLobby('${lobby}')`;
   return new Promise((resolve, reject) => {
-  return getDB()
+    return getDB()
     .promise()
     .query(qr)
     .then((result) => {
-      resp = {
-        changed: false,
-        error: false,
-      };
-      if (result[0][0].length !== playerCount) {
-        resp.changed = true;
-        resp.data = result[0][0];
-      }
-      return resp;
-    })
-    .catch((err) => {
-      console.log(err);
-      return {
-        error: true,
-      };
-    })
-    .then((result) => {
-      if (result.error) {
-        reject(result);
-      }
-      resolve(result);
-    });
+        resp = {
+          changed: false,
+          error: false,
+        };
+        if (result[0][0].length !== playerCount) {
+          resp.changed = true;
+          resp.data = result[0][0];
+        }
+        return resp;
+      })
+      .catch((err) => {
+        console.log(err);
+        return {
+          error: true,
+        };
+      })
+      .then((result) => {
+        if (result.error) {
+          reject(result);
+        }
+        resolve(result);
+      });
   });
 };
 
@@ -174,20 +218,20 @@ const getChanges = (req, res) => {
 
   // console.log(lobby, playerCount, username);
 
-  checkChange(lobby, playerCount).then((result) => {
-    // console.log(result)
-    if(!result.changed) return res.status(200).send({ code: "no_changes" });
-    res.status(200).send({
-      message: "A lobby frissült!",
-      code: "lobby_updated",
-      data: result.data,
+  checkChange(lobby, playerCount)
+    .then((result) => {
+      // console.log(result)
+      if (!result.changed) return res.status(200).send({ code: "no_changes" });
+      res.status(200).send({
+        message: "A lobby frissült!",
+        code: "lobby_updated",
+        data: result.data,
+      });
+    })
+    .catch((err) => {
+      console.log(result);
+      res.status(400).send({ code: "unknown_error" });
     });
-  })
-  .catch((err) => {
-    console.log(result)
-    res.status(400).send({ code: "unknown_error" });
-  });
-  
 };
 
 const lobbyAvailable = async (lobby) => {
@@ -206,10 +250,10 @@ const lobbyAvailable = async (lobby) => {
         return false;
       })
       .catch((err) => {
-        if(err.code === "ER_DUP_ENTRY") {
+        if (err.code === "ER_DUP_ENTRY") {
           leaveLobby(req, res, false);
           createLobby(req, res);
-          return false
+          return false;
         }
         console.log(err);
         return false;
@@ -236,9 +280,10 @@ const createLobby = (req, res) => {
 
   lobbyAvailable(lobby)
     .then((available) => {
-      return joinLobby(req, res, lobby);
+      return joinLobby(req, res, lobby, true);
     })
     .catch((err) => {
+      console.log(err)
       res.status(400).send({
         error: "Nem sikerült létrehozni a lobbyt!",
         code: "lobby_creation_failed",
