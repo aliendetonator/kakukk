@@ -32,6 +32,10 @@ export class StatisticsComponent implements OnInit {
     console.log(this.data.id);
     this.checkTables();
 
+    const name = document.getElementById("name");
+    if(name != null) {
+      name.innerHTML = this.data.id;
+    }
   }
 
   checkTables(): void {
@@ -52,10 +56,17 @@ export class StatisticsComponent implements OnInit {
       }
     }
   }
-
-
-
+  getData(table:any): void
+  {
+    this.service.statistics(table).subscribe((res) => {
+      this.statistics.set(res);
+      for(let i = 0; i < res.data.length; i++) {
+        this.readData = res.data;
+      }
+    })
+  }
 }
+
 
 
 class Statistics {
