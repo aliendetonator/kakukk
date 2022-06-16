@@ -31,7 +31,7 @@ export class ApiService {
     return this._http.get(`${this.apiUrl}/user`);
   }
 
-  statistics(table:any): Observable<any> {
-    return this._http.get(`${this.apiUrl}/statistics`);
+  statistics(data:any): Observable<any> {
+    return this._http.post(`${this.apiUrl}/statistics`, data);
   }
 }

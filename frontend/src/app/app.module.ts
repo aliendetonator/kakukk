@@ -17,6 +17,7 @@ import { InterceptorServiceService } from './services/interceptor-service.servic
 import { LobbyprofileComponent } from './lobbyprofile/lobbyprofile.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { JoinLobbyComponent } from './views/popup-panels/join-lobby/join-lobby.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,7 @@ import { JoinLobbyComponent } from './views/popup-panels/join-lobby/join-lobby.c
     ReactiveFormsModule,
     AuthModule
   ],
-  providers: [ApiService, {
+  providers: [ApiService, DatePipe, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorServiceService,
     multi: true
