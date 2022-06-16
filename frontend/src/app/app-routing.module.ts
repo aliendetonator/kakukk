@@ -9,16 +9,34 @@ import { RegisterComponent } from './auth/components/register/register.component
 import { LoginComponent } from './auth/components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LobbyComponent } from './lobby/lobby.component';
+import { JoinLobbyComponent } from './views/popup-panels/join-lobby/join-lobby.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'statistics', canActivate: [AuthGuardService], component: StatisticsComponent },
-  { path: 'menu', canActivate: [AuthGuardService],component: StartMenuComponent},
-  { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
-  { path: 'lobby', canActivate:[AuthGuardService], component: LobbyComponent },
-  { path: '**', component: NavbarComponent},
+  {
+    path: 'statistics',
+    canActivate: [AuthGuardService],
+    component: StatisticsComponent,
+  },
+  {
+    path: 'menu',
+    canActivate: [AuthGuardService],
+    component: StartMenuComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [AuthGuardService],
+    component: ProfileComponent,
+  },
+  { path: 'lobby', canActivate: [AuthGuardService], component: LobbyComponent },
+  {
+    path: 'joinLobby',
+    canActivate: [AuthGuardService],
+    component: JoinLobbyComponent,
+  },
+  { path: '**', component: NavbarComponent },
 ];
 
 @NgModule({

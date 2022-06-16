@@ -23,8 +23,8 @@ export class GameService {
     return this._http.get(urlToGet);
   }
 
-  joinLobby(): Observable<any> {
-    return this._http.get(`${this.apiUrl}/join`);
+  joinLobby(id:string): Observable<any> {
+    return this._http.get(`${this.apiUrl}/join?lobby=${id}`);
   }
 
   leaveLobby(): Observable<any> {

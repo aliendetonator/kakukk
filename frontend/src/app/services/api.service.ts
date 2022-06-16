@@ -30,4 +30,8 @@ export class ApiService {
   getUser(): Observable<any> {
     return this._http.get(`${this.apiUrl}/user`);
   }
+
+  statistics(table:any): Observable<any> {
+    return this._http.get(`${this.apiUrl}/statistics`);
+  }
 }

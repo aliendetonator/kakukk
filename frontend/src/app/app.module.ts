@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth/auth.module';
 import { InterceptorServiceService } from './services/interceptor-service.service';
 import { LobbyprofileComponent } from './lobbyprofile/lobbyprofile.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { JoinLobbyComponent } from './views/popup-panels/join-lobby/join-lobby.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { LobbyComponent } from './lobby/lobby.component';
     StartMenuComponent,
     ProfileComponent,
     LobbyComponent,
-    LobbyprofileComponent
+    LobbyprofileComponent,
+    JoinLobbyComponent
   ],
   imports: [
     BrowserModule,

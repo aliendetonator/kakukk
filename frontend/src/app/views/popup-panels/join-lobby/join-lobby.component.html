@@ -1,0 +1,16 @@
+<app-start-menu></app-start-menu>
+<div id="container">
+    <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+    <div id="close">
+        <h2>Csatlakozás</h2>
+        <a routerLink="/">&times;</a>
+    </div>
+    <div class="form-element">
+        <label id="join">Csatlakozó kód</label>
+        <input type="text" id="join" formControlName="join">
+    </div>
+    <div class="form-element">
+        <button id="joinbtn" type="submit" [disabled]="!joinForm.valid">Csatlakozás</button>
+    </div>
+    </form>
+</div>
