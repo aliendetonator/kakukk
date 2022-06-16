@@ -34,4 +34,5 @@ export class ApiService {
   statistics(data:any): Observable<any> {
     return this._http.post(`${this.apiUrl}/statistics`, data);
   }
+
 }

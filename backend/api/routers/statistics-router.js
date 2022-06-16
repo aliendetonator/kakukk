@@ -5,4 +5,5 @@ strouter.post("/", (req, res) => {
   statistics(req, res);
 });
 
+
 module.exports = strouter;

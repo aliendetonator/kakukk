@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Jún 16. 20:34
+-- Létrehozás ideje: 2022. Jún 16. 20:46
 -- Kiszolgáló verziója: 10.4.22-MariaDB
 -- PHP verzió: 8.0.13
 
@@ -101,6 +101,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGamesvedelmezo` (IN `infelha
 where felhasznalonev = infelhasznalonev
 order by datum desc
 limit 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserSumboszorkany` (IN `infelhasznalonev` VARCHAR(100))  select SUM(pont) from boszorkany
+where felhasznalonev = infelhasznalonev$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserSumfalusi` (IN `infelhasznalonev` VARCHAR(100))  select SUM(pont) from falusi
+where felhasznalonev = infelhasznalonev$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserSumfarkas` (IN `infelhasznalonev` VARCHAR(100))  select SUM(pont) from farkas
+where felhasznalonev = infelhasznalonev$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserSumlatnok` (IN `infelhasznalonev` VARCHAR(100))  select SUM(pont) from latnok
+where felhasznalonev = infelhasznalonev$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserSumvedelmezo` (IN `infelhasznalonev` VARCHAR(100))  select SUM(pont) from vedelmezo
+where felhasznalonev = infelhasznalonev$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getvedelmezotop` (IN `inlimit` INT, IN `inoffset` INT)  SELECT felhasznalonev, SUM(pont) AS pont
 FROM vedelmezo
