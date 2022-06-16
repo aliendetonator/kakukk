@@ -20,7 +20,7 @@ const getLobby = (req, res) => {
   res.set("Cache-Control", "no-store");
 
   const lobby = req.query.lobby;
-  const user = req.query.user;
+  const user = req.query.user || req.user.felhasznalonev;
 
   let qr = `CALL GetLobby('${lobby}')`;
 
@@ -124,17 +124,18 @@ const joinLobby = (req, res, lobby) => {
 
 const checkChange = (lobby, playerCount) => {
   const qr = `CALL GetLobby('${lobby}')`;
-  getDB()
+  return new Promise((resolve, reject) => {
+  return getDB()
     .promise()
     .query(qr)
     .then((result) => {
       resp = {
-        data: result[0][0],
         changed: false,
         error: false,
       };
       if (result[0][0].length !== playerCount) {
         resp.changed = true;
+        resp.data = result[0][0];
       }
       return resp;
     })
@@ -143,13 +144,21 @@ const checkChange = (lobby, playerCount) => {
       return {
         error: true,
       };
+    })
+    .then((result) => {
+      if (result.error) {
+        reject(result);
+      }
+      resolve(result);
     });
+  });
 };
 
 const getChanges = (req, res) => {
   res.set("Cache-Control", "no-store");
 
-  const { lobby, playerCount } = req.body;
+  const lobby = req.body.lobby;
+  const playerCount = req.body.playerCount;
   const username = req.user.felhasznalonev;
 
   if (
@@ -163,15 +172,22 @@ const getChanges = (req, res) => {
     });
   }
 
-  const change = checkChange(lobby, playerCount);
-  if (change.error) return res.status(400).send({ code: "unknown_error" });
-  if (!change.changed) return res.status(200).send({ code: "no_changes" });
+  // console.log(lobby, playerCount, username);
 
-  res.status(200).send({
-    message: "A lobby frissült!",
-    code: "lobby_updated",
-    data: change.data,
+  checkChange(lobby, playerCount).then((result) => {
+    // console.log(result)
+    if(!result.changed) return res.status(200).send({ code: "no_changes" });
+    res.status(200).send({
+      message: "A lobby frissült!",
+      code: "lobby_updated",
+      data: result.data,
+    });
+  })
+  .catch((err) => {
+    console.log(result)
+    res.status(400).send({ code: "unknown_error" });
   });
+  
 };
 
 const lobbyAvailable = async (lobby) => {

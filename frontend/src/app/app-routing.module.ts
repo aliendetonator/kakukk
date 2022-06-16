@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'statistics', canActivate: [AuthGuardService], component: StatisticsComponent },
   { path: 'menu', canActivate: [AuthGuardService],component: StartMenuComponent},
   { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
-  { path: 'lobby', component: LobbyComponent},
+  { path: 'lobby', canActivate:[AuthGuardService], component: LobbyComponent },
   { path: '**', component: NavbarComponent},
 ];
 

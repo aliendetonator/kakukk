@@ -3,17 +3,11 @@
         <h1>Lobby</h1>
         <h2>#{{this.id}}</h2>
     </div>
-    <div class="playerContainer">
-        <app-lobbyprofile username="Valaki"></app-lobbyprofile>
+    <div class="playerContainer" #container>
+        <app-lobbyprofile *ngFor="let user of users" username="{{user.username}}"></app-lobbyprofile>
+        <!-- <app-lobbyprofile username="Valaki"></app-lobbyprofile>
         <app-lobbyprofile username="ASdsaffdsfsd"></app-lobbyprofile>
         <app-lobbyprofile username="asdasd"></app-lobbyprofile>
-        <app-lobbyprofile username="asdsfgtzhujztghfdsasdsghdjfhgfjgf"></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
-        <app-lobbyprofile></app-lobbyprofile>
+        <app-lobbyprofile username="asdsfgtzhujztghfdsasdsghdjfhgfjgf"></app-lobbyprofile> -->
     </div>
 </div>
