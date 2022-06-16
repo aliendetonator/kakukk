@@ -18,7 +18,10 @@ export class StartMenuComponent implements OnInit {
   createLobby() {
     this.gameService.createLobby().subscribe(res => {
       console.log(res);
-      this.router.navigate(['/lobby']);
+      if (res.code === "joined") {
+        return this.router.navigate(['/lobby']);
+      }
+      return alert(res.message);
     });
   }
 

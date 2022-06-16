@@ -63,14 +63,15 @@ const getLobby = (req, res) => {
     });
 };
 
-const leaveLobby = (req, res) => {
+const leaveLobby = (req, res, sendres) => {
   const username = req.user.felhasznalonev;
-
+  if (sendres === undefined) sendres = true;
   const qr = `CALL RemoveFromLobby('${username}')`;
   getDB()
     .promise()
     .query(qr)
     .then((result) => {
+      if(!sendres) return true;
       res.status(200).send({
         message: "Kiléptél a lobbyból!",
         code: "left_the_lobby",
@@ -78,6 +79,7 @@ const leaveLobby = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      if (!sendres) return false;
       res.status(400).send({
         message: "Ismeretlen hiba!",
         code: "unknown_error",
@@ -107,7 +109,12 @@ const joinLobby = (req, res, lobby) => {
       });
     })
     .catch((err) => {
+      if(err.code === "ER_DUP_ENTRY") {
+        leaveLobby(req, res, false);
+        return joinLobby(req, res, lobby);
+      }
       console.log(err);
+      
       res.status(400).send({
         message: "Ismeretlen hiba!",
         code: "unknown_error",
@@ -183,6 +190,11 @@ const lobbyAvailable = async (lobby) => {
         return false;
       })
       .catch((err) => {
+        if(err.code === "ER_DUP_ENTRY") {
+          leaveLobby(req, res, false);
+          createLobby(req, res);
+          return false
+        }
         console.log(err);
         return false;
       })
@@ -204,7 +216,6 @@ const generateLobbyName = () => {
 };
 
 const createLobby = (req, res) => {
-  const username = req.user.felhasznalonev;
   var lobby = generateLobbyName();
 
   lobbyAvailable(lobby)

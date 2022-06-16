@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LobbyComponent implements OnInit {
 
+  public id = "asd123";
   constructor() { }
 
   ngOnInit(): void {
