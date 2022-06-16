@@ -22,15 +22,15 @@ export class GameService {
     return this._http.get(`${this.apiUrl}?user=${username}`);
   }
 
-  joinLobby(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/join`, data);
+  joinLobby(): Observable<any> {
+    return this._http.get(`${this.apiUrl}/join`);
   }
 
   leaveLobby(data: any): Observable<any> {
     return this._http.post(`${this.apiUrl}/leave`, data);
   }
 
-  createLobby(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/createLobby`, data);
+  createLobby(): Observable<any> {
+    return this._http.get(`${this.apiUrl}/createLobby`);
   }
 }

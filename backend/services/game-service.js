@@ -1,5 +1,21 @@
 const getDB = require("../config/database-config").getDB;
+const clc = require("cli-color");
 
+const deleteLobbies = () => {
+  var deleteInterval = setInterval(() => {
+    const qr = `CALL DeleteLobbies()`;
+    getDB()
+      .promise()
+      .query(qr)
+      .then((result) => {
+        console.log(clc.green("Lobbies deleted!"));
+        clearTimeout(deleteInterval);
+      })
+      .catch((err) => {
+        console.log(clc.red("Error deleting lobbies!"));
+      });
+  }, 2000);
+};
 const getLobby = (req, res) => {
   res.set("Cache-Control", "no-store");
 
@@ -71,23 +87,23 @@ const leaveLobby = (req, res) => {
 
 const joinLobby = (req, res, lobby) => {
   const username = req.user.felhasznalonev;
-  lobby = lobby ?? req.query.lobby;
-
-  if (lobby !== undefined) {
+  lobby = lobby || req.query.lobby;
+ 
+  if (lobby === undefined) {
     return res.status(400).send({
       error: "Nem adtál meg lobbyt!",
       code: "lobby_not_defined",
     });
   }
 
-  const qr = `CALL JoinLobby('${username}', ${lobby})`;
+  const qr = `CALL JoinLobby('${username}', '${lobby}')`;
   getDB()
     .promise()
     .query(qr)
     .then((result) => {
       res.status(200).send({
         message: "Csatlakoztál a lobbyhoz!",
-        code: "joined_the_lobby",
+        code: "joined",
       });
     })
     .catch((err) => {
@@ -151,20 +167,35 @@ const getChanges = (req, res) => {
   });
 };
 
-const lobbyAvailable = (lobby) => {
+const lobbyAvailable = async (lobby) => {
   const qr = `CALL GetLobby('${lobby}')`;
-  getDB()
-    .promise()
-    .query(qr)
-    .then((result) => {
-      if (result[0][0].length > 0) return false;
 
-      return true;
-    })
-    .catch((err) => {
-      console.log(err);
-      return false;
-    });
+  // available var with a setter and default value false
+
+  const promise = new Promise((resolve, reject) => {
+    getDB()
+      .promise()
+      .query(qr)
+      .then((result) => {
+        if (result[0][0].length === 0) {
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      })
+      .then((available) => {
+        if (available) {
+          resolve(true);
+        }
+        reject(false);
+      });
+  });
+
+  const getResult = await promise;
+  return getResult;
 };
 
 const generateLobbyName = () => {
@@ -175,20 +206,17 @@ const generateLobbyName = () => {
 const createLobby = (req, res) => {
   const username = req.user.felhasznalonev;
   var lobby = generateLobbyName();
-  var tries = 0;
-  while (!lobbyAvailable(lobby)) {
-    if (tries > 100) {
-      return res.status(400).send({
+
+  lobbyAvailable(lobby)
+    .then((available) => {
+      return joinLobby(req, res, lobby);
+    })
+    .catch((err) => {
+      res.status(400).send({
         error: "Nem sikerült létrehozni a lobbyt!",
         code: "lobby_creation_failed",
       });
-    }
-    lobby = generateLobbyName();
-    tries++;
-  }
-
-  joinLobby(req, res, lobby);
-
+    });
 };
 
 module.exports = {
@@ -197,4 +225,5 @@ module.exports = {
   joinLobby,
   getChanges,
   createLobby,
+  deleteLobbies,
 };

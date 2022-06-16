@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 
 require("./config/database-config").initDB();
+require('./services/game-service').deleteLobbies();
 
 app.use(cors());
 app.use(require("body-parser").json());

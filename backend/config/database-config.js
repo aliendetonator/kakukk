@@ -17,10 +17,9 @@ const handleDisconnect = () => {
   db.connect((err) => {
     if (err) {
       console.log(clc.red("Database connection failed! Retrying..."));
-      setTimeout(handleDisconnect, 2000);
-    } else {
-      console.log(clc.green("Database connected!"));
+      return setTimeout(handleDisconnect, 2000);
     }
+    console.log(clc.green("Database connected!"));
   });
 
   db.on("error", (err) => {
