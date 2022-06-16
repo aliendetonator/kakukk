@@ -18,7 +18,7 @@ export class StatisticsComponent implements OnInit {
     ) { }
 
   readData:any;
-
+  dataOfPoints:any;
   statistics = new Statistics();
   data={
     user: this.auth.getUserDetails().felhasznalonev,

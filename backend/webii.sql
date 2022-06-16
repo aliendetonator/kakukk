@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 16, 2022 at 07:57 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2022. Jún 16. 20:34
+-- Kiszolgáló verziója: 10.4.22-MariaDB
+-- PHP verzió: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `webii`
+-- Adatbázis: `webii`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Eljárások
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `boszorkanyfeltoltes` (IN `infelhasznalonev` VARCHAR(50), IN `inpont` INT)  INSERT INTO boszorkany VALUES(infelhasznalonev, inpont, NOW())$$
 
@@ -65,17 +65,42 @@ ORDER BY pont DESC
 LIMIT inlimit
 OFFSET inoffset$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobby` (IN `lobbyID` VARCHAR(6))  BEGIN
-	SELECT username
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobby` (IN `lID` VARCHAR(6))  BEGIN
+    SELECT username
     FROM connected
-    WHERE BINARY `lobby` = lobbyID;
+    WHERE `lobby` = lID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobbyByUsername` (IN `uName` VARCHAR(30))  BEGIN
-	SELECT lobby
+    SELECT lobby
     FROM connected
     WHERE `username` = uName;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGamesboszorkany` (IN `infelhasznalonev` VARCHAR(100))  select pont,datum from boszorkany
+where felhasznalonev = infelhasznalonev
+order by datum desc
+LIMIT 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGamesfalusi` (IN `infelhasznalonev` VARCHAR(100))  select pont,datum from falusi
+where felhasznalonev = infelhasznalonev
+order by datum desc
+limit 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGamesfarkas` (IN `infelhasznalonev` VARCHAR(100))  select pont,datum from farkas
+where felhasznalonev = infelhasznalonev
+order by datum desc
+limit 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGameslatnok` (IN `infelhasznalonev` VARCHAR(100))  select pont,datum from latnok
+where felhasznalonev = infelhasznalonev
+order by datum desc
+limit 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserGamesvedelmezo` (IN `infelhasznalonev` VARCHAR(100))  select pont,datum from vedelmezo
+where felhasznalonev = infelhasznalonev
+order by datum desc
+limit 10$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getvedelmezotop` (IN `inlimit` INT, IN `inoffset` INT)  SELECT felhasznalonev, SUM(pont) AS pont
 FROM vedelmezo
@@ -85,7 +110,7 @@ LIMIT inlimit
 OFFSET inoffset$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `JoinLobby` (IN `uName` VARCHAR(30), IN `lID` VARCHAR(6))  BEGIN
-	INSERT INTO connected
+    INSERT INTO connected
     VALUES (uName, lID);
 END$$
 
@@ -93,7 +118,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `latnokfeltoltes` (IN `infelhasznalo
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RemoveFromLobby` (IN `uName` VARCHAR(30))  BEGIN
     DELETE FROM connected
-    WHERE BINARY `username` = uName;
+    WHERE `username` = uName;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `vedelmezofeltoltes` (IN `infelhasznalonev` VARCHAR(50), IN `inpont` INT)  INSERT INTO vedelmezo VALUES(infelhasznalonev, inpont, NOW())$$
@@ -103,7 +128,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `boszorkany`
+-- Tábla szerkezet ehhez a táblához `boszorkany`
 --
 
 CREATE TABLE `boszorkany` (
@@ -113,7 +138,7 @@ CREATE TABLE `boszorkany` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `boszorkany`
+-- A tábla adatainak kiíratása `boszorkany`
 --
 
 INSERT INTO `boszorkany` (`felhasznalonev`, `pont`, `datum`) VALUES
@@ -122,7 +147,7 @@ INSERT INTO `boszorkany` (`felhasznalonev`, `pont`, `datum`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `connected`
+-- Tábla szerkezet ehhez a táblához `connected`
 --
 
 CREATE TABLE `connected` (
@@ -133,7 +158,7 @@ CREATE TABLE `connected` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `falusi`
+-- Tábla szerkezet ehhez a táblához `falusi`
 --
 
 CREATE TABLE `falusi` (
@@ -143,7 +168,7 @@ CREATE TABLE `falusi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `falusi`
+-- A tábla adatainak kiíratása `falusi`
 --
 
 INSERT INTO `falusi` (`felhasznalonev`, `pont`, `datum`) VALUES
@@ -153,7 +178,7 @@ INSERT INTO `falusi` (`felhasznalonev`, `pont`, `datum`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `farkas`
+-- Tábla szerkezet ehhez a táblához `farkas`
 --
 
 CREATE TABLE `farkas` (
@@ -163,7 +188,7 @@ CREATE TABLE `farkas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `farkas`
+-- A tábla adatainak kiíratása `farkas`
 --
 
 INSERT INTO `farkas` (`felhasznalonev`, `pont`, `datum`) VALUES
@@ -184,12 +209,13 @@ INSERT INTO `farkas` (`felhasznalonev`, `pont`, `datum`) VALUES
 ('userame', 3, '2022-05-25 15:08:20'),
 ('username', 12, '2022-05-25 15:09:21'),
 ('userame', 4, '2022-05-25 15:09:21'),
-('valamisemmi', 23, '2022-05-25 15:10:38');
+('valamisemmi', 23, '2022-05-25 15:10:38'),
+('carbonara', 2, '2022-06-16 19:31:38');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `felhasznalo`
+-- Tábla szerkezet ehhez a táblához `felhasznalo`
 --
 
 CREATE TABLE `felhasznalo` (
@@ -199,7 +225,7 @@ CREATE TABLE `felhasznalo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `felhasznalo`
+-- A tábla adatainak kiíratása `felhasznalo`
 --
 
 INSERT INTO `felhasznalo` (`email`, `jelszo`, `felhasznalonev`) VALUES
@@ -219,7 +245,7 @@ INSERT INTO `felhasznalo` (`email`, `jelszo`, `felhasznalonev`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `latnok`
+-- Tábla szerkezet ehhez a táblához `latnok`
 --
 
 CREATE TABLE `latnok` (
@@ -229,7 +255,7 @@ CREATE TABLE `latnok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `latnok`
+-- A tábla adatainak kiíratása `latnok`
 --
 
 INSERT INTO `latnok` (`felhasznalonev`, `pont`, `datum`) VALUES
@@ -238,7 +264,7 @@ INSERT INTO `latnok` (`felhasznalonev`, `pont`, `datum`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vedelmezo`
+-- Tábla szerkezet ehhez a táblához `vedelmezo`
 --
 
 CREATE TABLE `vedelmezo` (
@@ -248,89 +274,89 @@ CREATE TABLE `vedelmezo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
--- Dumping data for table `vedelmezo`
+-- A tábla adatainak kiíratása `vedelmezo`
 --
 
 INSERT INTO `vedelmezo` (`felhasznalonev`, `pont`, `datum`) VALUES
 ('semmi', 5, '2022-05-26 18:43:35');
 
 --
--- Indexes for dumped tables
+-- Indexek a kiírt táblákhoz
 --
 
 --
--- Indexes for table `boszorkany`
+-- A tábla indexei `boszorkany`
 --
 ALTER TABLE `boszorkany`
   ADD KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Indexes for table `connected`
+-- A tábla indexei `connected`
 --
 ALTER TABLE `connected`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `falusi`
+-- A tábla indexei `falusi`
 --
 ALTER TABLE `falusi`
   ADD KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Indexes for table `farkas`
+-- A tábla indexei `farkas`
 --
 ALTER TABLE `farkas`
   ADD KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Indexes for table `felhasznalo`
+-- A tábla indexei `felhasznalo`
 --
 ALTER TABLE `felhasznalo`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Indexes for table `latnok`
+-- A tábla indexei `latnok`
 --
 ALTER TABLE `latnok`
   ADD KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Indexes for table `vedelmezo`
+-- A tábla indexei `vedelmezo`
 --
 ALTER TABLE `vedelmezo`
   ADD KEY `felhasznalonev` (`felhasznalonev`);
 
 --
--- Constraints for dumped tables
+-- Megkötések a kiírt táblákhoz
 --
 
 --
--- Constraints for table `boszorkany`
+-- Megkötések a táblához `boszorkany`
 --
 ALTER TABLE `boszorkany`
   ADD CONSTRAINT `boszorkany_ibfk_1` FOREIGN KEY (`felhasznalonev`) REFERENCES `felhasznalo` (`felhasznalonev`);
 
 --
--- Constraints for table `falusi`
+-- Megkötések a táblához `falusi`
 --
 ALTER TABLE `falusi`
   ADD CONSTRAINT `falusi_ibfk_1` FOREIGN KEY (`felhasznalonev`) REFERENCES `felhasznalo` (`felhasznalonev`);
 
 --
--- Constraints for table `farkas`
+-- Megkötések a táblához `farkas`
 --
 ALTER TABLE `farkas`
   ADD CONSTRAINT `farkas_ibfk_1` FOREIGN KEY (`felhasznalonev`) REFERENCES `felhasznalo` (`felhasznalonev`);
 
 --
--- Constraints for table `latnok`
+-- Megkötések a táblához `latnok`
 --
 ALTER TABLE `latnok`
   ADD CONSTRAINT `latnok_ibfk_1` FOREIGN KEY (`felhasznalonev`) REFERENCES `felhasznalo` (`felhasznalonev`);
 
 --
--- Constraints for table `vedelmezo`
+-- Megkötések a táblához `vedelmezo`
 --
 ALTER TABLE `vedelmezo`
   ADD CONSTRAINT `vedelmezo_ibfk_1` FOREIGN KEY (`felhasznalonev`) REFERENCES `felhasznalo` (`felhasznalonev`);
