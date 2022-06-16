@@ -48,6 +48,8 @@ const getLobby = (req, res) => {
         });
       }
 
+      console.log(result[0][0]);
+
       res.status(200).send({
         message: "Sikeres kérés!",
         code: "success",
@@ -146,7 +148,7 @@ const joinLobby = (req, res, lobby, create) => {
       });
     });
   }
-  
+
   if(create){
     return join();
   }

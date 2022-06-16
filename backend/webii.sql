@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2022 at 02:45 PM
+-- Generation Time: Jun 16, 2022 at 07:57 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -68,13 +68,13 @@ OFFSET inoffset$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobby` (IN `lobbyID` VARCHAR(6))  BEGIN
 	SELECT username
     FROM connected
-    WHERE BINARY lobby = lobbyID;
+    WHERE BINARY `lobby` = lobbyID;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobbyByUsername` (IN `username` VARCHAR(30))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLobbyByUsername` (IN `uName` VARCHAR(30))  BEGIN
 	SELECT lobby
     FROM connected
-    WHERE BINARY username = username;
+    WHERE `username` = uName;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getvedelmezotop` (IN `inlimit` INT, IN `inoffset` INT)  SELECT felhasznalonev, SUM(pont) AS pont
@@ -84,16 +84,16 @@ ORDER BY pont DESC
 LIMIT inlimit
 OFFSET inoffset$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `JoinLobby` (IN `username` VARCHAR(30), IN `lobbyID` VARCHAR(6))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `JoinLobby` (IN `uName` VARCHAR(30), IN `lID` VARCHAR(6))  BEGIN
 	INSERT INTO connected
-    VALUES (username, lobbyID);
+    VALUES (uName, lID);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `latnokfeltoltes` (IN `infelhasznalonev` VARCHAR(50), IN `inpont` INT)  INSERT INTO latnok VALUES(infelhasznalonev, inpont, NOW())$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RemoveFromLobby` (IN `username` VARCHAR(30))  BEGIN
-	DELETE FROM connected
-    WHERE BINARY username = username;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RemoveFromLobby` (IN `uName` VARCHAR(30))  BEGIN
+    DELETE FROM connected
+    WHERE BINARY `username` = uName;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `vedelmezofeltoltes` (IN `infelhasznalonev` VARCHAR(50), IN `inpont` INT)  INSERT INTO vedelmezo VALUES(infelhasznalonev, inpont, NOW())$$

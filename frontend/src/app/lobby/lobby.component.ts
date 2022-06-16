@@ -42,6 +42,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void{
     this.gameService.leaveLobby().subscribe(res => { 
       console.log(res);
+
       this.getDataFromServer.unsubscribe();
       this.router.navigate(['/']);
     });
