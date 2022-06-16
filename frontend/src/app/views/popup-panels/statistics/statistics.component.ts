@@ -22,20 +22,19 @@ export class StatisticsComponent implements OnInit {
   statistics = new Statistics();
   data={
     user: this.auth.getUserDetails().felhasznalonev,
-    id:"ossz",
-    table: "farkas",
+    id:"farkas",
     offset:0
   };
 
 
   ngOnInit(): void {
     console.log(this.data.user)
+    this.getData()
   }
 
   getIdOfBtn(event: Event): void {
     let elementId: string = (event.target as Element).id;
     this.data.id = elementId;
-    this.checkTables();
     this.getData();
 
     const name = document.getElementById("name");
@@ -44,24 +43,6 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-  checkTables(): void {
-    const summaryTable = document.getElementById("summary")
-    const roleTable = document.getElementById("role")
-
-    if(roleTable != null && summaryTable != null)
-    {
-      if(this.data.id == "ossz")
-      {
-        roleTable.style.display = 'none'
-        summaryTable.style.display = 'block'
-      }
-      else
-      {
-        roleTable.style.display = 'block'
-        summaryTable.style.display = 'none'
-      }
-    }
-  }
   getData(): void
   {
     this.service.statistics(this.data).subscribe((result) => {
@@ -88,8 +69,6 @@ export class StatisticsComponent implements OnInit {
   }
 
 }
-
-
 
 class Statistics {
   statistics = [];

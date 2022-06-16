@@ -3,9 +3,9 @@ const getDB = require("../config/database-config").getDB;
 const statistics = (req, res) => {
 const data = req.body;
 
-const table = data.id ? data.id : "ossz";
+const table = data.id ? data.id : "farkas";
 const user = data.user ? data.user : "userame";
-if (table === "ossz") {
+if (table === "felhasznalo") {
     table = "farkas";
 }
 
