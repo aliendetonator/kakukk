@@ -14,12 +14,12 @@
         <div class="form-element">
             <label for="password">Jelszó</label>
             <input type="password" id="passwordreg" formControlName="password">
-            <i class="fas fa-eye" id="togglePasswordAtReg"></i>
+            <i *ngIf="false" class="fas fa-eye" id="togglePasswordAtReg"></i>
         </div>
         <div class="form-element">
             <label for="passwordagain">Jelszó ismét</label>
             <input type="password" id="passwordagain" formControlName="passwordRepeat">
-            <i class="fas fa-eye" id="togglePasswordRepeat"></i>
+            <i *ngIf="false" class="fas fa-eye" id="togglePasswordRepeat"></i>
         </div>
         <div class="form-element">
             <button id="signupbtn" [disabled]="!registerForm.valid">Regisztráció</button>

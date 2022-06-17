@@ -47,6 +47,9 @@ export class LobbyComponent implements OnInit, OnDestroy {
           console.log(res);
           if (res.code === 'no_changes') return;
           if (res.code === 'lobby_updated') {
+            if (res.data.length === 0) {
+              this.leaveLobby();
+            }
             this.users = res.data;
             this.updateUsers();
           }
