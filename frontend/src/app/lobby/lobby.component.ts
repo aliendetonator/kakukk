@@ -19,6 +19,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   public id: string;
   public users: any[] = [];
   private getDataFromServer: any;
+  private errorNum: number = 0;
   @ViewChild('container') userContainer: ElementRef;
 
   constructor(
@@ -44,6 +45,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
       this.gameService
         .getChanges({ lobby: this.id, playerCount: this.users.length })
         .subscribe((res) => {
+          this.errorNum = 0;
           console.log(res);
           if (res.code === 'no_changes') return;
           if (res.code === 'lobby_updated') {
@@ -52,6 +54,11 @@ export class LobbyComponent implements OnInit, OnDestroy {
             }
             this.users = res.data;
             this.updateUsers();
+          }
+        }, (err) => {
+          this.errorNum++;
+          if (this.errorNum > 5) {
+            this.leaveLobby();
           }
         });
     });
@@ -66,6 +73,9 @@ export class LobbyComponent implements OnInit, OnDestroy {
       console.log(res);
 
       this.getDataFromServer.unsubscribe();
+      this.router.navigate(['/']);
+    }, (err) => {
+      console.log(err);
       this.router.navigate(['/']);
     });
   }
