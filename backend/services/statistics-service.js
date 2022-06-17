@@ -16,13 +16,13 @@ const statistics = (req, res) => {
     .then((result) => {
       res.status(200).send({
         data: result[0][0],
-      });
+      }); 
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).send({
-        message: "Ismeretlen hiba!",
-        code: "unknown_error",
+      res.status(500).send({
+        message: "Szerver hiba!",
+        code: "server_error",
       });
     });
 };

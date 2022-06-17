@@ -4,7 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ffff;
-  box-shadow: 15px 15px 5px 5px #666;
+  box-shadow: 15px 30px 20px 10px rgb(0 0 0 / 30%);
   border-radius: 10px;
   width: 600px;
   height: auto;
