@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { GameService } from '../services/game.service';
@@ -6,41 +13,53 @@ import { GameService } from '../services/game.service';
 @Component({
   selector: 'app-lobby',
   templateUrl: './lobby.component.html',
-  styleUrls: ['./lobby.component.css']
+  styleUrls: ['./lobby.component.css'],
 })
 export class LobbyComponent implements OnInit, OnDestroy {
-
   public id: string;
   public users: any[] = [];
   private getDataFromServer: any;
   @ViewChild('container') userContainer: ElementRef;
 
-  constructor(private gameService: GameService, private router: Router, private route:ActivatedRoute) { }
+  constructor(
+    private gameService: GameService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.gameService.getLobby().subscribe(res => {
-      console.log(res.data)
-      this.id = res.data[0].lobby;
-    }, err => {
-      if (err.error.code) {
-        this.router.navigate(['/']);
+    this.gameService.getLobby().subscribe(
+      (res) => {
+        console.log(res.data);
+        this.id = res.data[0].lobby;
+      },
+      (err) => {
+        if (err.error.code) {
+          this.router.navigate(['/']);
+        }
       }
-    });
+    );
 
     this.getDataFromServer = interval(1000).subscribe(() => {
-      this.gameService.getChanges({ lobby: this.id, playerCount: this.users.length }).subscribe(res => {
-        console.log(res)
-        if (res.code === "no_changes") return;
-        if (res.code === "lobby_updated") {
-          this.users = res.data;
-          this.updateUsers();
-        }
-      });
-    })
+      this.gameService
+        .getChanges({ lobby: this.id, playerCount: this.users.length })
+        .subscribe((res) => {
+          console.log(res);
+          if (res.code === 'no_changes') return;
+          if (res.code === 'lobby_updated') {
+            this.users = res.data;
+            this.updateUsers();
+          }
+        });
+    });
   }
 
-  ngOnDestroy(): void{
-    this.gameService.leaveLobby().subscribe(res => { 
+  ngOnDestroy(): void {
+    this.leaveLobby();
+  }
+
+  leaveLobby(): void {
+    this.gameService.leaveLobby().subscribe((res) => {
       console.log(res);
 
       this.getDataFromServer.unsubscribe();
@@ -56,5 +75,4 @@ export class LobbyComponent implements OnInit, OnDestroy {
     //   this.userContainer.nativeElement.appendChild(userElement);
     // });
   }
-
 }

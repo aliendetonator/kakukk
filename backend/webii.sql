@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Jún 16. 22:12
+-- Létrehozás ideje: 2022. Jún 17. 11:53
 -- Kiszolgáló verziója: 10.4.22-MariaDB
 -- PHP verzió: 8.0.13
 
@@ -169,13 +169,6 @@ CREATE TABLE `connected` (
   `username` varchar(30) COLLATE utf8mb4_hungarian_ci NOT NULL,
   `lobby` varchar(6) COLLATE utf8mb4_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `connected`
---
-
-INSERT INTO `connected` (`username`, `lobby`) VALUES
-('username', 'rtm59t');
 
 -- --------------------------------------------------------
 

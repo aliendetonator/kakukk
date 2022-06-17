@@ -1,7 +1,11 @@
-<div class="lobby">
+<div class="lobby noselect">
     <div class="header">
         <h1>Lobby</h1>
-        <h2>#{{this.id}}</h2>
+        <h2 class="select">#{{this.id}}</h2>
+        <div class="backButton" (click)="leaveLobby();">
+            <i class="fa fa-chevron-circle-left"></i>
+            <a>Kilépés</a>
+        </div>
     </div>
     <div class="playerContainer" #container>
         <app-lobbyprofile *ngFor="let user of users" username="{{user.username}}"></app-lobbyprofile>
